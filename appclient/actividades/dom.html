@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .subrayado{
+        color:teal;
+        text-decoration: underline;
+    }
+
+</style>
+<body>
+    <h1 id="titulo1">JavaScript Basico 1</h1>
+
+    <h2 id="titulo2">Manipulacion del DOM y Selectores</h2>
+
+    <p>DOM Document Object Model <a href="https://es.wikipedia.org/wiki/Document_Object_Model"> </a></p>
+
+    <ul id="lista">
+        <li>Cargando...</li>
+    </ul>
+
+    <script>
+        console.info('Esta funcionando');
+
+        //seleccionamos un elemento por su id
+        let elH1 = document.getElementById('titulo1');
+        let elH2 = document.getElementById('titulo2');
+
+        //cambiar el color a rojo
+        elH1.style.color = 'red';
+
+        //añadimos una clase a traves de clasList API
+        elH2.classList.add('subrayado');
+
+        //podemos manipular tambien el texto
+        elH1.textContent='Cambiado mediante JS';
+        //cargar dinamicamente la lista
+        let lista = document.getElementById('lista');
+        //limpiar el contenido
+        lista.innerHTML='';
+        //cargar datos
+        for(let i=0; i < 4; i++){
+            lista.innerHTML += `<li>Elemento ${i}`;
+        }
+
+    </script>
+
+</body>
+
+</html>
