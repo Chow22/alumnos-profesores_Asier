@@ -45,7 +45,7 @@ function init() {
 
     alumnos.innerHTML='';
     for (let i = 0; i < alumnosJSON.length; i++) {
-        alumnos.innerHTML += '<li class="list-item"><img src="'+alumnosJSON[i].avatar+'" alt="avatar">'+alumnosJSON[i].nombre+'</li><hr>';
+        alumnos.innerHTML += '<li class="list-item"><img src="'+alumnosJSON[i].avatar+'" alt="avatar">'+alumnosJSON[i].nombre+'</li>';
     }
 
 
