@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saludo</title>
+</head>
+
+<body>
+    <input type="text" id="entrada">
+    <button id="boton">Click</button>
+
+    <p id="parrafo"></p>
+
+
+    <script>
+        let botonTexto = document.getElementById('boton');
+        let texto = document.getElementById('entrada').value;
+
+
+        botonTexto.addEventListener('click', function () {
+            if (!texto == "") {
+                document.getElementById('parrafo').innerHTML = '';
+                document.getElementById('parrafo').innerHTML = texto;
+            } else {
+                alert('Texto vacio');
+            }
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
