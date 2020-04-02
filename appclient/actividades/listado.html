@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<body>
+    <br>
+    <button type="button" class="btn btn-primary" id="boton">Generar lista</button>
+    <p>
+    <table class="table table-bordered">
+        <tbody>
+            <tr id="lista">
+
+            </tr>
+        </tbody>
+    </table>
+</p>
+
+
+    <script>
+
+        let peliculas = [{
+            "id": 1,
+            "nombre": "El sexto sentido",
+            "director": "M. Night Shyamalan",
+            "clasificacion": "Drama"
+        },
+        {
+            "id": 2,
+            "nombre": "Pulp Fiction",
+            "director": "Tarantino",
+            "clasificacion": "Accion"
+        },
+        {
+            "id": 3,
+            "nombre": "Todo Sobre Mi Madre",
+            "director": "Almodobar",
+            "clasificacion": "Drama"
+        }];
+
+
+
+        let boton = document.getElementById('boton');
+
+
+
+        boton.addEventListener('click', generarLista);
+
+        function generarLista() {
+            let lista = document.getElementById('lista');
+            lista.innerHTML='';
+            for (let i = 0; i < peliculas.length; i++) {
+                lista.innerHTML += '<td>' + 'id: '+peliculas[i].id + ',<br>nombre: '+peliculas[i].nombre+',<br>director: '+peliculas[i].director+',<br>clasificacion:'+peliculas[i].clasificacion+ '</td>'
+
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
