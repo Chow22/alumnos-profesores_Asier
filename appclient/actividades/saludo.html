@@ -9,27 +9,24 @@
 
 <body>
     <input type="text" id="entrada">
-    <button id="boton">Click</button>
+    <button id="boton">Pulsar</button>
 
     <p id="parrafo"></p>
 
 
     <script>
-        let botonTexto = document.getElementById('boton');
-        let texto = document.getElementById('entrada').value;
+        let boton= document.getElementById('boton');
 
+        boton.addEventListener('click', anadirTexto);
 
-        botonTexto.addEventListener('click', function () {
-            if (!texto == "") {
-                document.getElementById('parrafo').innerHTML = '';
-                document.getElementById('parrafo').innerHTML = texto;
-            } else {
+        function anadirTexto() {
+            let texto = document.getElementById('entrada').value;
+            if (texto == '') {
                 alert('Texto vacio');
+            } else {
+                document.getElementById('parrafo').innerHTML = texto;
             }
-        });
-
-
-
+        }
     </script>
 
 </body>
