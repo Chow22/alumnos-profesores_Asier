@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="style.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<body>
+    <section class="our-webcoderskull padding-lg">
+        <div class="row heading heading-icon">
+            <h2>Actividad 5 Lista de personas</h2>
+        </div>
+        <div class="container">
+            <ul class="row" id="listaPersonas">
+
+            </ul>
+            <script>
+
+                const url = 'https://randomuser.me/api/?results=10';
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        // Json
+                        const jsonData = JSON.parse(this.responseText);
+
+                        const personas = jsonData.results;
+
+                        let lista = document.getElementById('listaPersonas');
+                        lista.innerHTML = '';
+
+                        for (let i = 0; i < personas.length; i++) {
+                            const persona = personas[i];
+
+                            lista.innerHTML += `<li class="col-12 col-md-6 col-lg-3">
+                                            <div class="cnt-block equal-hight" style="height: 349px;">
+                                                <figure><img src="${persona.picture.large}" class="img-responsive" alt=""></figure>
+                                                <h3><a href="http://www.webcoderskull.com/">${persona.name.first}</a></h3>
+                                                <p>${persona.email}</p>
+                                                <p>${persona.location.city}</p>
+                                            </div>
+                                        </li>`;
+
+                        }
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+
+            </script>
+</body>
+
+</html>
