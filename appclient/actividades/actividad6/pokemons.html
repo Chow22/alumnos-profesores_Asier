@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Actividad 6</title>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="style.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<h1>Wiki Pokemons</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <ul id="listapokemons">
+          <li class="list-item">
+            Cargando porfavor espere...
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h3 id="nombrepokemon">
+          ...
+        </h3>
+        <img id="imagen" src="https://media2.giphy.com/media/DRfu7BT8ZK1uo/source.gif">
+        <p id="exp">
+          Experiencia base:
+        </p>
+        <p id="peso">
+          Peso:
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    let url = 'https://pokeapi.co/api/v2/pokemon';
+
+
+    window.onload = function () {
+      listaPokemon(url);
+    };
+
+    function detallePokemon(boton) {
+      url = boton.name;
+
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+          // Json
+          const jsonData = JSON.parse(this.responseText);
+
+          const pokemon = jsonData;
+
+
+
+          let nombre = document.getElementById('nombrepokemon');
+          let exp = document.getElementById('exp');
+          let peso = document.getElementById('peso');
+          let imagen = document.getElementById('imagen');
+
+
+          nombre.innerHTML = pokemon.name;
+          exp.innerHTML = "Experiencia base: "+pokemon.base_experience;
+          peso.innerHTML = "Peso: "+pokemon.weight;
+          imagen.setAttribute("src", `https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png`);
+
+
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+
+    }
+
+
+    function listaPokemon(url) {
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+          // Json
+          const jsonData = JSON.parse(this.responseText);
+
+          const pokemons = jsonData.results;
+
+          let pokeLista = document.getElementById('listapokemons');
+          pokeLista.innerHTML = '';
+
+          for (let i = 0; i < pokemons.length; i++) {
+            const pokemon = pokemons[i];
+
+            pokeLista.innerHTML += `<li><a href="#" onclick="detallePokemon(this)" name="${pokemon.url}">
+                                      ${pokemon.name}
+                                    </a></li>`;
+
+          }
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }
+  </script>
+</body>
+
+</html>
