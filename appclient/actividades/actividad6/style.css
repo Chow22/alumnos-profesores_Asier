@@ -1,3 +1,7 @@
+body{
+    background: url("https://www.solofondos.com/wp-content/uploads/2015/11/Imagen-de-fondo-html.jpg");
+}
+
 button{
     margin: 0.5%;
 }
@@ -5,8 +9,17 @@ button{
 li{
     text-decoration: none;
     list-style: none;
+    margin-left: 0rem;
 }
 
 img{
     width: 60%;
+}
+
+h1{
+    color: honeydew;
+    margin-left: 1.5%;
+}
+p,h3{
+    color: honeydew;
 }
