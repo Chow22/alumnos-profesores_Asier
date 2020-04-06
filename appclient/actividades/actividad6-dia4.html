@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>actividad6</title>
+</head>
+<body>
+    
+<script>
+        const bebidas = [
+            {
+                "nombre": "cocacola",
+                "precio": 1.20,
+                "colores" : [ "rojo" ]
+            },
+            {
+                "nombre": "nestea",
+                "precio": 2.20,
+                "colores" : [ "rojo","verde","amarillo" ]
+            },
+            {
+                "nombre": "acuarius",
+                "precio": 1.50,
+                "colores" : [ "verde","amarillo" ]
+            },
+            {
+                "nombre": "zumo naranja",
+                "precio": 2.99,
+                "colores" : [ "verde","amarillo" ]
+            }
+        ];
+           //map 
+        let soloPrecios= bebidas.map(bebida=>{
+            return bebida.nombre;
+
+        })
+        console.debug(soloPrecios);
+
+        //filter
+        let preciosAltos = bebidas.filter((bebida) => bebida.precio > 2 );
+        console.debug(preciosAltos);
+
+        //reduce
+        const valorInicial = 0;
+        const totalPrecio = bebidas.map( el => el.precio ).reduce( (previous, current) => {
+            return previous + current;
+
+        }, valorInicial );
+        console.info('totalPrecio= ' + totalPrecio);
+</script>
+
+
+</body>
+</html>
