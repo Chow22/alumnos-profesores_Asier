@@ -54,14 +54,11 @@ function listaPokemon(url) {
       let pokeLista = document.getElementById('listapokemons');
       pokeLista.innerHTML = '';
 
-      for (let i = 0; i < pokemons.length; i++) {
-        const pokemon = pokemons[i];
-
-        pokeLista.innerHTML += `<li class="list-group-item"><a href="#" onclick="detallePokemon(this)" name="${pokemon.url}">
-                                  ${pokemon.name}
-                                </a></li>`;
-
-      }
+        pokemons.forEach(pokemon => {
+            pokeLista.innerHTML += `<li class="list-group-item"><a href="#" onclick="detallePokemon(this)" name="${pokemon.url}">
+            ${pokemon.name}
+          </a></li>`;
+        });
     }
   };
   xhttp.open("GET", url, true);
