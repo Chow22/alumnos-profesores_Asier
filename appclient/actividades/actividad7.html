@@ -44,7 +44,7 @@
 
         console.debug("Array solo con nombres de frutas que están en oferta ( map + filter )");
 
-        let nombresFrutasOferta = frutas.filter((fruta) => fruta.oferta == true).map(fruta => {
+        let nombresFrutasOferta = frutas.filter((fruta) => fruta.oferta).map(fruta => {
             return fruta.nombre;
 
         });
@@ -60,14 +60,14 @@
         console.info('totalPrecio= ' + totalPrecio);
 
         console.debug("Precio TOTAL de todas las frutas, pero aplicando el descuento si están en oferta ( map, filter, reduce )");
-
-        let totalPrecioDescuento = frutas.map(el => el.precio).reduce((previous, current) => {
-            return previous + current;
-        });
-        totalPrecioDescuento = totalPrecioDescuento - (frutas.filter((fruta) => fruta.oferta == true).map(fruta => {
-                return fruta.precio
-            })/100);
-        console.info('totalPrecioDescuento= ' + totalPrecioDescuento);
+        console.info(frutas.map(el => {
+            if (el.oferta) {
+                return (el.precio - (el.precio * el.descuento / 100));
+            } else {
+                return el.precio;
+            }
+        }).reduce((p, c) => p + c, 0)
+        );
 
 
 
@@ -86,7 +86,15 @@
 
         //Array solo con los colores de las frutas SIN REPETICIÓN
 
-
+        console.info('Array solo con los colores de las frutas ');
+        console.info([...new Set(
+            frutas.map(el => el.colores)
+                .reduce((p, c, i, a) => {
+                    const resultado = p.concat(c);
+                    return resultado;
+                })
+        )]
+        );
 
 
 
