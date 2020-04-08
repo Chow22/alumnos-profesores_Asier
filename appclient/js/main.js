@@ -1,36 +1,50 @@
 // fichero javascript para app
-let personas=[];
+const endpoint = 'http://localhost:8080/apprest/api/personas/';
+let personas = [];
+
 window.addEventListener('load', init());
 
-let selectorSexo = document.getElementById("selectorSexo");
-selectorSexo.addEventListener('change', filtrarSexo);
-
-
 function init() {
-    cargarJSON();
-
     console.debug('Document Load and Ready');
-   
-    
+    listener();
+
+
+    const promesa = ajax("GET", endpoint, undefined);
+    promesa
+        .then(data => {
+            console.trace('promesa resolve');
+            personas = data;
+            pintarLista(personas);
+
+        }).catch(error => {
+            console.warn('promesa rejectada');
+            alert(error);
+        });
+
+    console.debug('continua la ejecuion del script de forma sincrona');
+
+
 }
 
-function cargarJSON() {
-    url = "http://localhost:8080/apprest/api/personas/";
-    var xhttp = new XMLHttpRequest();
+function listener() {
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+    let selectorSexo = document.getElementById('selectorSexo');
+    let inputNombre = document.getElementById('nombre');
 
-            // Json
-            const jsonData = JSON.parse(this.responseText);
+    selectorSexo.addEventListener('change', filtrarSexo);
 
-            personas = jsonData;
+    inputNombre.addEventListener('keyup', function () {
+        const busqueda = inputNombre.value.toLowerCase();
+        console.debug('tecla pulsada, valor input ' + busqueda);
+        if (busqueda) {
+            const personasFiltradas = personas.filter(el => el.nombre.toLowerCase().includes(busqueda));
+            pintarLista(personasFiltradas);
+        } else {
             pintarLista(personas);
         }
+    });
 
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
+
 }
 
 function pintarLista(alumnosJSON) {
