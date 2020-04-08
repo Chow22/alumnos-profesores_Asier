@@ -2,13 +2,15 @@
 let personas=[];
 window.addEventListener('load', init());
 
+let selectorSexo = document.getElementById("selectorSexo");
+selectorSexo.addEventListener('change', filtrarSexo);
+
+
 function init() {
     cargarJSON();
 
     console.debug('Document Load and Ready');
-    let selectorSexo = document.getElementById("selectorSexo");
-    
-    selectorSexo.addEventListener('change', filtrarSexo);
+   
     
 }
 
@@ -41,7 +43,6 @@ function pintarLista(alumnosJSON) {
 
 function filtrarSexo() {
     let selector = document.getElementById('selectorSexo').value;
-    alert(selector);
     let personasFiltradas;
     if (selector == 't') {
         personasFiltradas = personas;
