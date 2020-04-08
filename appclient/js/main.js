@@ -1,9 +1,15 @@
 // fichero javascript para app
-
+let retornoJson=[];
 window.addEventListener('load', init());
-let retornoJson;
+
 function init() {
     cargarJSON();
+
+    console.debug('Document Load and Ready');
+    let selectorSexo = document.getElementById("selectorSexo");
+    
+    selectorSexo.addEventListener('change', filtrarSexo);
+    
 }
 
 function cargarJSON() {
@@ -17,11 +23,7 @@ function cargarJSON() {
             const jsonData = JSON.parse(this.responseText);
 
             retornoJson = jsonData;
-
-            console.debug('Document Load and Ready');
-            let selectorSexo = document.getElementById("selectorSexo");
-            pintarLista(jsonData);
-            selectorSexo.addEventListener('change', filtrarSexo(jsonData), false);
+            pintarLista(retornoJson);
         }
 
     };
@@ -37,7 +39,7 @@ function pintarLista(alumnosJSON) {
     }
 };
 
-function filtrarSexo(alumnosJSON) {
+function filtrarSexo() {
     let selector = document.getElementById('selectorSexo').value;
     alert(selector);
     let personasFiltradas;
