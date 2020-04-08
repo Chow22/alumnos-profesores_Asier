@@ -1,5 +1,5 @@
 // fichero javascript para app
-let retornoJson=[];
+let personas=[];
 window.addEventListener('load', init());
 
 function init() {
@@ -22,8 +22,8 @@ function cargarJSON() {
             // Json
             const jsonData = JSON.parse(this.responseText);
 
-            retornoJson = jsonData;
-            pintarLista(retornoJson);
+            personas = jsonData;
+            pintarLista(personas);
         }
 
     };
@@ -44,9 +44,9 @@ function filtrarSexo() {
     alert(selector);
     let personasFiltradas;
     if (selector == 't') {
-        personasFiltradas = alumnosJSON;
+        personasFiltradas = personas;
     } else {
-        personasFiltradas = alumnosJSON.filter(el => el.sexo == selector);
+        personasFiltradas = personas.filter(el => el.sexo == selector);
     };
 
     console.debug(personasFiltradas);
