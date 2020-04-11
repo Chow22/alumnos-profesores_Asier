@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -25,9 +26,28 @@
             </select>
             <input type="search" id="nombre" placeholder="Escribe nombre">
         </div>
-        <ul id="alumnos">
-            <li class="list-item">Cargando...</li>
-        </ul>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul id="alumnos">
+                        <li class="list-item">Cargando...</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="col formulario">
+
+                        <input type="text" id="inputId" placeholder="id" readonly>
+                        <br>
+                        <input type="text" id="inputNombre" placeholder="Escribe nombre">
+                        <br>
+
+                        <input type="button" value="Guardar" onclick="guardar()">
+                        <input type="button" value="Nueva Persona" onclick="seleccionar('*')">
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
     <script src="js/ajax.js"></script>

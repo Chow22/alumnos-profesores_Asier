@@ -50,9 +50,11 @@ function listener() {
 function pintarLista(alumnosJSON) {
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
-    for (let i = 0; i < alumnosJSON.length; i++) {
-        lista.innerHTML += '<li class="list-item"><img src="img/' + alumnosJSON[i].avatar + '" alt="avatar">' + alumnosJSON[i].nombre + '</li>';
-    }
+    alumnosJSON.forEach((p, i) => lista.innerHTML += `<li>
+                                                            <img src="img/${p.avatar}" alt="avatar">${p.nombre}
+                                                            <i class="fas fa-pencil-ruler" onclick="seleccionar(${i})"></i>
+                                                            <i class="fas fa-trash" onclick="eliminar(${i})"></i>
+                                                        </li>` );
 };
 
 function filtrarSexo() {
@@ -68,8 +70,72 @@ function filtrarSexo() {
     //pintar la lista filtrada
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
-    for (let i = 0; i < personasFiltradas.length; i++) {
-        lista.innerHTML += '<li class="list-item"><img src="img/' + personasFiltradas[i].avatar + '" alt="avatar">' + personasFiltradas[i].nombre + '</li>';
+    personasFiltradas.forEach((p, i) => lista.innerHTML += `<li>
+                                                            <img src="img/${p.avatar}" alt="avatar">${p.nombre}
+                                                            <i class="fas fa-pencil-ruler" onclick="seleccionar(${i})"></i>
+                                                            <i class="fas fa-trash" onclick="eliminar(${i})"></i>
+                                                        </li>` );
+}
+
+function eliminar(indice) {
+    let personaSeleccionada = personas[indice];
+    console.debug('click eliminar persona %o', personaSeleccionada);
+    const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
+    if (confirm(mensaje)) {
+
+        //TODO mirar como remover de una posicion
+        //personas = personas.splice(indice,1);
+        personas = personas.filter(el => el.id != personaSeleccionada.id)
+        pintarLista(personas);
+        //TODO llamada al servicio rest
+
     }
 
-};
+}
+
+function seleccionar(indice) {
+
+    let personaSeleccionada = { "id": personas.length+1, "nombre": "sin nombre" };
+
+    if (indice != '*') {
+        personaSeleccionada = personas[indice];
+    }
+
+    console.debug('click guardar persona %o', personaSeleccionada);
+
+    //rellernar formulario
+    document.getElementById('inputId').value = personaSeleccionada.id;
+    document.getElementById('inputNombre').value = personaSeleccionada.nombre;
+
+}
+
+function guardar() {
+
+    console.trace('click guardar');
+    let id = document.getElementById('inputId').value;
+    let nombre = document.getElementById('inputNombre').value;
+
+    personaSeleccionada = {
+        "id": id,
+        "nombre": nombre,
+        "avatar": "avatar7.png"
+    };
+    console.info( personas.some(el => el.id == 2 ));
+
+    if (personas.some(el => el.id == id )){
+        personas.map(function (dato) {
+            if (dato.id == id) {
+                dato.nombre = nombre;
+            }
+        })
+    }else{
+        personas.push(personaSeleccionada);
+    }
+    console.debug('persona a guardar %o', personaSeleccionada);
+
+    //TODO llamar servicio rest
+
+  
+    pintarLista(personas);
+
+}
