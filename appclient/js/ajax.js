@@ -3,11 +3,11 @@
  * llamada ajax en vanilla javascript
  * @param {*} metodo 
  * @param {*} url 
- * @param {*} datos 
+ * @param {*} datos en formato json para el request body
  * @return Promise
  */
 function ajax( metodo, url, datos ){
-
+    
     return new Promise( (resolve, reject ) => {
 
         console.debug(`promesa ajax metodo ${metodo} - ${url}` );
@@ -32,6 +32,7 @@ function ajax( metodo, url, datos ){
         };// onreadystatechange
 
         xhttp.open( metodo , url , true);
-        xhttp.send();
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+        xhttp.send( JSON.stringify(datos) );
     });
 }

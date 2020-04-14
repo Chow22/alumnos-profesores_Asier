@@ -86,11 +86,27 @@ function eliminar(indice) {
     const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
     if (confirm(mensaje)) {
 
-        //TODO mirar como remover de una posicion
-        //personas = personas.splice(indice,1);
-        personas = personas.filter(el => el.id != personaSeleccionada.id)
-        pintarLista(personas);
-        //TODO llamada al servicio rest
+        const url = endpoint + personaSeleccionada.id;
+        ajax('DELETE', url, undefined)
+            .then( data => {
+ 
+                    // conseguir de nuevo todos los alumnos
+                    ajax("GET", endpoint, undefined)               
+                    .then( data => {
+                            console.trace('promesa resolve'); 
+                            personas = data;
+                            pintarLista( personas );
+                
+                    }).catch( error => {
+                            console.warn('promesa rejectada');
+                            alert(error);
+                    });
+
+            })
+            .catch( error => {
+                console.warn('promesa rejectada');
+                alert(error);
+            });
 
     }
 
@@ -98,9 +114,9 @@ function eliminar(indice) {
 
 function seleccionar(indice) {
 
-    let personaSeleccionada = { "id": personas.length + 1, "nombre": "sin nombre" };
+    let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
 
-    if (indice != '*') {
+    if (indice >= 0) {
         personaSeleccionada = personas[indice];
     }
 
@@ -133,30 +149,87 @@ function guardar() {
     let id = document.getElementById('inputId').value;
     let nombre = document.getElementById('inputNombre').value;
     const avatar = document.getElementById('inputAvatar').value;
-    const sexo = document.getElementById('inputSexo').value;
 
-    personaSeleccionada = {
-        "id": id,
-        "nombre": nombre,
-        "avatar": avatar,
-        "sexo": sexo
+    var ele = document.getElementsByName('inputSexo');
+    const sexo=""; 
+              
+    for(i = 0; i < ele.length; i++) { 
+        if(ele[i].checked) 
+        sexo=ele[i].value; 
+    } 
+
+    //arregla en fallo de mandar con img/ o sin ello
+    if(avatar.includes("img/")){
+        personaSeleccionada= {
+            "id": id,
+            "nombre": nombre,
+            "avatar": avatar.substring(4,20),
+            "sexo": sexo}
+    }else{
+        personaSeleccionada= {
+            "id": id,
+            "nombre": nombre,
+            "avatar": avatar,
+            "sexo": sexo}
     };
-    console.info(personas.some(el => el.id == 2));
 
-    if (personas.some(el => el.id == id)) {
-        personas.map(function (dato) {
-            if (dato.id == id) {
-                dato.nombre = nombre;
-                dato.avatar = avatar;
-                dato.sexo = sexo;
-            }
-        })
-    } else {
-        personas.push(personaSeleccionada);
-    }
     console.debug('persona a guardar %o', personaSeleccionada);
 
-    //TODO llamar servicio rest
+    //llamar servicio rest
+
+    //CREAR
+    if ( id == 0 ){ 
+        console.trace('Crear nueva persona');
+        ajax('POST',endpoint, personaSeleccionada)
+            .then( data => {
+ 
+                    // conseguir de nuevo todos los alumnos
+                    ajax("GET", endpoint, undefined)               
+                    .then( data => {
+                            console.trace('promesa resolve'); 
+                            personas = data;
+                            pintarLista( personas );
+                
+                    }).catch( error => {
+                            console.warn('promesa rejectada');
+                            alert(error);
+                    });
+
+            })
+            .catch( error => {
+                console.warn('promesa rejectada');
+                alert(error);
+            });
+        
+
+    // MODIFICAR
+    }else{
+        console.trace('Modificar persona');
+
+        const url = endpoint + personaSeleccionada.id;
+        ajax('PUT', url , personaSeleccionada)
+            .then( data => {
+ 
+                    // conseguir de nuevo todos los alumnos
+                    ajax("GET", endpoint, undefined)               
+                    .then( data => {
+                            console.trace('promesa resolve'); 
+                            personas = data;
+                            pintarLista( personas );
+                
+                    }).catch( error => {
+                            console.warn('promesa rejectada');
+                            alert(error);
+                    });
+
+            })
+            .catch( error => {
+                console.warn('No se pudo actualizar');
+                alert(error);
+            });
+        
+    }
+
     pintarLista(personas);
 
 }
@@ -175,13 +248,10 @@ function initGallery() {
 function selectAvatar(evento) {
     console.trace('click avatar');
     const avatares = document.querySelectorAll('#gallery img');
-    //eliminamos la clases 'selected' a todas las imagenes del div#gallery
-    avatares.forEach(el => el.classList.remove('selected'));
-    // ponemos clase 'selected' a la imagen que hemos hecho click ( evento.target )
+    avatares.forEach( el => el.classList.remove('selected') );
     evento.target.classList.add('selected');
-
+    
     let iAvatar = document.getElementById('inputAvatar');
-    //@see: https://developer.mozilla.org/es/docs/Learn/HTML/como/Usando_atributos_de_datos
     iAvatar.value = evento.target.dataset.path;
 
 }

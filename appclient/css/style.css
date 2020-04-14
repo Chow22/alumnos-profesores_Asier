@@ -13,3 +13,11 @@ li{
     margin-top: 1rem;
     border-bottom:1px solid grey;
 }
+
+#gallery img{
+   filter: opacity(.2);
+}
+
+#gallery img.selected {
+    filter: grayscale(0);
+}
