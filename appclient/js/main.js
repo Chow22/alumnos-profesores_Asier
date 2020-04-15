@@ -150,12 +150,12 @@ function guardar() {
     let nombre = document.getElementById('inputNombre').value;
     const avatar = document.getElementById('inputAvatar').value;
 
-    var ele = document.getElementsByName('inputSexo');
-    const sexo=""; 
+    var ele = document.getElementsByName('sexo');
+
               
     for(i = 0; i < ele.length; i++) { 
         if(ele[i].checked) 
-        sexo=ele[i].value; 
+        sexoelegido=ele[i].value; 
     } 
 
     //arregla en fallo de mandar con img/ o sin ello
@@ -164,13 +164,13 @@ function guardar() {
             "id": id,
             "nombre": nombre,
             "avatar": avatar.substring(4,20),
-            "sexo": sexo}
+            "sexo": sexoelegido}
     }else{
         personaSeleccionada= {
             "id": id,
             "nombre": nombre,
             "avatar": avatar,
-            "sexo": sexo}
+            "sexo": sexoelegido}
     };
 
     console.debug('persona a guardar %o', personaSeleccionada);
