@@ -111,13 +111,15 @@ public class PersonaDAO implements IDAO<Persona> {
 		ps.setString(2, pojo.getAvatar());
 		ps.setString(3, pojo.getSexo());
 
-		ps.executeUpdate();
+		ps.executeQuery();
 
 		return pojo;
 	}
 
 	@Override
 	public Persona update(Persona pojo) throws Exception, SQLException {
+
+		
 		Connection con = ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement("UPDATE persona SET nombre=?,avatar=?,sexo=? WHERE id=?");
 
