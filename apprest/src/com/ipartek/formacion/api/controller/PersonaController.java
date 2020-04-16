@@ -105,6 +105,7 @@ public class PersonaController {
 		if (violations.isEmpty()) {
 			PersonaDAO personaDAO = PersonaDAO.getInstancia();
 			personaDAO.update(persona);
+			response = Response.status(Status.OK).entity(persona).build();
 
 		} else {
 			ArrayList<String> errores = new ArrayList<String>();
@@ -123,19 +124,19 @@ public class PersonaController {
 	@Path("/{id: \\d+}")
 	public Response eliminar(@PathParam("id") int id) {
 		LOGGER.info("eliminar(" + id + ")");
-		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
-
-		Persona persona = null;
-
 		PersonaDAO personaDAO = PersonaDAO.getInstancia();
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		Persona persona = null;
+		
 		try {
-			personaDAO.update(persona);
+			personaDAO.delete(id);
 			response = Response.status(Status.OK).entity(persona).build();
-		} catch (SQLException e) {
-			response = Response.status(Status.OK).entity(persona).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			
+		}catch (SQLException e) {
+			response = Response.status(Status.CONFLICT).entity(persona).build();
+			
+		}catch (Exception e) {
+			response = Response.status(Status.NOT_FOUND).entity(persona).build();
 		}
 		return response;
 	}

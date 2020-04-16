@@ -87,31 +87,38 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
-		ArrayList<Persona> registros = new ArrayList<Persona>();
 		String sql = "DELETE FROM persona WHERE id=" + id + ";";
+		Persona registro = null;
+		registro = getById(id);
 
-		try {
-			Connection con = ConnectionManager.getConnection();
-			PreparedStatement pst = con.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+
+			pst.setInt(1, id);
+
+			int affetedRows = pst.executeUpdate();
+			if (affetedRows != 1) {
+				throw new Exception("No se puede eliminar registro " + id);
+			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+
+			throw new Exception("No se puede eliminar registro " + e.getMessage());
 		}
 
-		return null;
+		return registro;
 	}
 
 	@Override
 	public Persona insert(Persona pojo) throws Exception, SQLException {
 		Connection con = ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement("INSERT INTO persona (nombre, avatar, sexo) VALUES (?, ?, ?,)");
+		PreparedStatement ps = con
+				.prepareStatement("INSERT INTO alumnos.persona (default,nombre, avatar, sexo) VALUES (?, ?, ?,)");
 
 		ps.setString(1, pojo.getNombre());
 		ps.setString(2, pojo.getAvatar());
 		ps.setString(3, pojo.getSexo());
 
-		ps.executeQuery();
+		ps.executeUpdate();
 
 		return pojo;
 	}
@@ -119,7 +126,6 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona update(Persona pojo) throws Exception, SQLException {
 
-		
 		Connection con = ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement("UPDATE persona SET nombre=?,avatar=?,sexo=? WHERE id=?");
 
