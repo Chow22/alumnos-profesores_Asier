@@ -8,9 +8,15 @@ function init() {
     console.debug('Document Load and Ready');
     listener();
     initGallery();
+    conseguirAlumnos();
+
+    console.debug('continua la ejecuion del script de forma sincrona');
 
 
+}
 
+function conseguirAlumnos() {
+    document.getElementById("selectorSexo").selectedIndex = 0;
 
     const promesa = ajax("GET", endpoint, undefined);
     promesa
@@ -23,9 +29,6 @@ function init() {
             console.warn('promesa rejectada');
             alert(error);
         });
-
-    console.debug('continua la ejecuion del script de forma sincrona');
-
 
 }
 
@@ -51,6 +54,8 @@ function listener() {
 }
 
 function pintarLista(alumnosJSON) {
+
+
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
     alumnosJSON.forEach((p, i) => lista.innerHTML += `<li>
@@ -88,22 +93,13 @@ function eliminar(indice) {
 
         const url = endpoint + personaSeleccionada.id;
         ajax('DELETE', url, undefined)
-            .then( data => {
- 
-                    // conseguir de nuevo todos los alumnos
-                    ajax("GET", endpoint, undefined)               
-                    .then( data => {
-                            console.trace('promesa resolve'); 
-                            personas = data;
-                            pintarLista( personas );
-                
-                    }).catch( error => {
-                            console.warn('promesa rejectada');
-                            alert(error);
-                    });
+            .then(data => {
+
+                // conseguir de nuevo todos los alumnos
+                conseguirAlumnos();
 
             })
-            .catch( error => {
+            .catch(error => {
                 console.warn('promesa rejectada');
                 alert(error);
             });
@@ -131,11 +127,11 @@ function seleccionar(indice) {
     let checkHombre = document.getElementById('sexoh');
     let checkMujer = document.getElementById('sexom');
 
-    if ( sexo == "h"){
+    if (sexo == "h") {
         checkHombre.checked = 'checked';
         checkMujer.checked = '';
 
-    }else{
+    } else {
         checkHombre.checked = '';
         checkMujer.checked = 'checked';
     }
@@ -152,85 +148,75 @@ function guardar() {
 
     var ele = document.getElementsByName('sexo');
 
-              
-    for(i = 0; i < ele.length; i++) { 
-        if(ele[i].checked) 
-        sexoelegido=ele[i].value; 
-    } 
+
+    for (i = 0; i < ele.length; i++) {
+        if (ele[i].checked)
+            sexoelegido = ele[i].value;
+    }
 
     //arregla en fallo de mandar con img/ o sin ello
-    if(avatar.includes("img/")){
-        personaSeleccionada= {
+    if (avatar.includes("img/")) {
+        personaSeleccionada = {
             "id": id,
             "nombre": nombre,
-            "avatar": avatar.substring(4,20),
-            "sexo": sexoelegido}
-    }else{
-        personaSeleccionada= {
+            "avatar": avatar.substring(4, 20),
+            "sexo": sexoelegido
+        }
+    } else {
+        personaSeleccionada = {
             "id": id,
             "nombre": nombre,
             "avatar": avatar,
-            "sexo": sexoelegido}
+            "sexo": sexoelegido
+        }
     };
 
     console.debug('persona a guardar %o', personaSeleccionada);
 
-    //llamar servicio rest
+    //TODO llamar servicio rest
 
     //CREAR
-    if ( id == 0 ){ 
+    if (id == 0) {
         console.trace('Crear nueva persona');
-        ajax('POST',endpoint, personaSeleccionada)
-            .then( data => {
- 
-                    // conseguir de nuevo todos los alumnos
-                    ajax("GET", endpoint, undefined)               
-                    .then( data => {
-                            console.trace('promesa resolve'); 
-                            personas = data;
-                            pintarLista( personas );
-                
-                    }).catch( error => {
-                            console.warn('promesa rejectada');
-                            alert(error);
-                    });
+        //persona.id = ++personas.length;
+        //personas.push(persona);
+
+        ajax('POST', endpoint, personaSeleccionada)
+            .then(data => {
+
+                // conseguir de nuevo todos los alumnos
+                conseguirAlumnos();
+
 
             })
-            .catch( error => {
+            .catch(error => {
                 console.warn('promesa rejectada');
                 alert(error);
             });
-        
 
-    // MODIFICAR
-    }else{
+
+        // MODIFICAR
+    } else {
         console.trace('Modificar persona');
 
         const url = endpoint + personaSeleccionada.id;
-        ajax('PUT', url , personaSeleccionada)
-            .then( data => {
- 
-                    // conseguir de nuevo todos los alumnos
-                    ajax("GET", endpoint, undefined)               
-                    .then( data => {
-                            console.trace('promesa resolve'); 
-                            personas = data;
-                            pintarLista( personas );
-                
-                    }).catch( error => {
-                            console.warn('promesa rejectada');
-                            alert(error);
-                    });
+        ajax('PUT', url, personaSeleccionada)
+            .then(data => {
+
+                // conseguir de nuevo todos los alumnos
+                conseguirAlumnos();
+
 
             })
-            .catch( error => {
+            .catch(error => {
                 console.warn('No se pudo actualizar');
                 alert(error);
             });
-        
+
     }
 
-    pintarLista(personas);
+
+
 
 }
 
@@ -248,9 +234,9 @@ function initGallery() {
 function selectAvatar(evento) {
     console.trace('click avatar');
     const avatares = document.querySelectorAll('#gallery img');
-    avatares.forEach( el => el.classList.remove('selected') );
+    avatares.forEach(el => el.classList.remove('selected'));
     evento.target.classList.add('selected');
-    
+
     let iAvatar = document.getElementById('inputAvatar');
     iAvatar.value = evento.target.dataset.path;
 

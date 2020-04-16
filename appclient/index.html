@@ -7,7 +7,7 @@
     <title>AppClient</title>
 
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -40,18 +40,22 @@
                         <input type="text" id="inputNombre" placeholder="Escribe nombre">
                         <br>
                         <input type="text" id="inputAvatar" placeholder="Escribe avatar">
-                        <br>
+                        <br><br>
 
                         <!-- Group of default radios -->
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="sexoh" name="sexo" value="h" checked>
-                            <label>Hombre</label>
+                        <div class="funkyradio">
+                            <div class="funkyradio-success">
+                                <input type="radio" name="sexo" id="sexoh" value="h"/>
+                                <label for="sexoh">Hombre</label>
+                            </div>
+                            <div class="funkyradio-success">
+                                <input type="radio" name="sexo" id="sexom" value="m"/>
+                                <label for="sexom">Mujer</label>
+                            </div>
 
-                            <input type="radio" id="sexom" name="sexo" value="m">
-                            <label >Mujer</label>
                         </div>
-
-                        <div id="gallery">                    
+                        <br>
+                        <div id="gallery">
                         </div>
                         <br>
 
@@ -67,6 +71,9 @@
     </main>
     <script src="js/ajax.js"></script>
     <script src="js/main.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 
 </body>
 
