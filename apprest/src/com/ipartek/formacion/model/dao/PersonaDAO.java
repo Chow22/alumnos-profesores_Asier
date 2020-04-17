@@ -87,7 +87,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
-		String sql = "DELETE FROM persona WHERE id=" + id + ";";
+		String sql = "DELETE FROM persona WHERE id = ?; ";
 		Persona registro = null;
 		registro = getById(id);
 

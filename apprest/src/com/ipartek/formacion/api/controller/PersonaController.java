@@ -129,14 +129,14 @@ public class PersonaController {
 		Persona persona = null;
 		
 		try {
-			personaDAO.delete(id);
+			persona=personaDAO.delete(id);
 			response = Response.status(Status.OK).entity(persona).build();
 			
 		}catch (SQLException e) {
-			response = Response.status(Status.CONFLICT).entity(persona).build();
+			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
 			
 		}catch (Exception e) {
-			response = Response.status(Status.NOT_FOUND).entity(persona).build();
+			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
 		}
 		return response;
 	}
