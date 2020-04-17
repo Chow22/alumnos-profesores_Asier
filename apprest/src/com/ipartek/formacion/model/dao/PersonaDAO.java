@@ -125,7 +125,6 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona update(Persona pojo) throws Exception, SQLException {
-
 		Connection con = ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement("UPDATE persona SET nombre=?,avatar=?,sexo=? WHERE id=?");
 
