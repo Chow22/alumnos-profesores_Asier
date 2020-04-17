@@ -112,7 +112,7 @@ public class PersonaDAO implements IDAO<Persona> {
 	public Persona insert(Persona pojo) throws Exception, SQLException {
 		Connection con = ConnectionManager.getConnection();
 		PreparedStatement ps = con
-				.prepareStatement("INSERT INTO alumnos.persona (default,nombre, avatar, sexo) VALUES (?, ?, ?,)");
+				.prepareStatement("INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? );");
 
 		ps.setString(1, pojo.getNombre());
 		ps.setString(2, pojo.getAvatar());

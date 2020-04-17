@@ -43,11 +43,7 @@ public class PersonaController {
 	private static ArrayList<Persona> personas = new ArrayList<Persona>();
 
 	static {
-		personas.add(new Persona(1, "Arantxa", "avatar1.png", "m"));
-		personas.add(new Persona(2, "Idoia", "avatar2.png", "m"));
-		personas.add(new Persona(3, "Iker", "avatar3.png", "h"));
-		personas.add(new Persona(4, "Hodei", "avatar4.png", "h"));
-		id = 5;
+
 	}
 
 	public PersonaController() {
