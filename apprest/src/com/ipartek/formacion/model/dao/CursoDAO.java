@@ -28,7 +28,7 @@ public class CursoDAO implements IDAO<Curso> {
 	public List<Curso> getAll() {
 
 		ArrayList<Curso> registros = new ArrayList<Curso>();
-		String sql = "SELECT * FROM curso ORDER BY id DESC LIMIT 500;";
+		String sql = "SELECT * FROM curso ORDER BY id LIMIT 500;";
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql);

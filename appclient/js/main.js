@@ -12,7 +12,9 @@ function init() {
     cargarCursosTodos()
     console.debug('continua la ejecuion del script de forma sincrona');
 
-
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
 }
 
 function conseguirAlumnos() {
@@ -254,7 +256,7 @@ function cargarCursosTodos() {
             let lista = document.getElementById('cursosLista');
             lista.innerHTML = '';
             cursos.forEach((c, i) => lista.innerHTML += `<li>
-                                                                    <h3>${c.id} ${c.nombre} </h3>
+                                                                    <h5>${c.id} ${c.nombre} </h5>
                                                                     <img src="${c.imagen}" alt="">
                                                                 </li>` );
 
