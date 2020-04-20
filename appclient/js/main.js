@@ -9,7 +9,7 @@ function init() {
     listener();
     initGallery();
     conseguirAlumnos();
-
+    cargarCursosTodos()
     console.debug('continua la ejecuion del script de forma sincrona');
 
 
@@ -240,4 +240,31 @@ function selectAvatar(evento) {
     let iAvatar = document.getElementById('inputAvatar');
     iAvatar.value = evento.target.dataset.path;
 
+}
+
+function cargarCursosTodos() {
+    let cursos=[];
+    let uri='http://localhost:8080/apprest/api/cursos/';
+    const promesa = ajax("GET", uri, undefined);
+    promesa
+        .then(data => {
+            console.trace('promesa resolve');
+            cursos = data;
+            console.info(cursos);
+            let lista = document.getElementById('cursosLista');
+            lista.innerHTML = '';
+            cursos.forEach((c, i) => lista.innerHTML += `<li>
+                                                                    <h3>${c.id} ${c.nombre} </h3>
+                                                                    <img src="${c.imagen}" alt="">
+                                                                </li>` );
+
+        }).catch(error => {
+            console.warn('promesa rejectada');
+            alert(error);
+        });
+
+}
+
+function cargarCursosComprados(idAlumno) {
+    
 }

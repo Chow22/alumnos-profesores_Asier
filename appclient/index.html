@@ -27,46 +27,59 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <ul id="alumnos">
                         <li class="list-item">Cargando...</li>
                     </ul>
                 </div>
-                <div class="col-md-6">
-                    <div class="col formulario">
+                <div class="col-md-4">
 
-                        <input type="text" id="inputId" placeholder="id" readonly>
-                        <br>
-                        <input type="text" id="inputNombre" placeholder="Escribe nombre">
-                        <br>
-                        <input type="text" id="inputAvatar" placeholder="Escribe avatar">
-                        <br><br>
+                    <input type="text" id="inputId" placeholder="id" readonly>
+                    <br>
+                    <input type="text" id="inputNombre" placeholder="Escribe nombre">
+                    <br>
+                    <input type="text" id="inputAvatar" placeholder="Escribe avatar">
+                    <br><br>
 
-                        <!-- Group of default radios -->
-                        <div class="funkyradio">
-                            <div class="funkyradio-success">
-                                <input type="radio" name="sexo" id="sexoh" value="h"/>
-                                <label for="sexoh">Hombre</label>
-                            </div>
-                            <div class="funkyradio-success">
-                                <input type="radio" name="sexo" id="sexom" value="m"/>
-                                <label for="sexom">Mujer</label>
-                            </div>
-
+                    <!-- Group of default radios -->
+                    <div class="funkyradio">
+                        <div class="funkyradio-success">
+                            <input type="radio" name="sexo" id="sexoh" value="h"/>
+                            <label for="sexoh">Hombre</label>
                         </div>
-                        <br>
-                        <div id="gallery">
+                        <div class="funkyradio-success">
+                            <input type="radio" name="sexo" id="sexom" value="m"/>
+                            <label for="sexom">Mujer</label>
                         </div>
-                        <br>
-
-                        <input type="button" value="Guardar" onclick="guardar()">
-                        <input type="button" value="Nueva Persona" onclick="seleccionar(-1)">
-                        <br>
 
                     </div>
+                    <br>
+                    <div id="gallery">
+                    </div>
+                    <br>
+
+                    <input type="button" value="Guardar" onclick="guardar()">
+                    <input type="button" value="Nueva Persona" onclick="seleccionar(-1)">
+                    <br>
+
+                </div>
+                <div class="col-md-4">
+                    <h1>Cursos adquiridos</h1>
+                    <ul id="cursosAlumno">
+                        <li class="list-item">Cargando...</li>
+                    </ul>
                 </div>
             </div>
+            <div>
+                <h1>Cursos</h1>
+                <ul id="cursosLista">
+                    <li class="list-item">Cargando...</li>
+                </ul>
+
+            </div>
         </div>
+
+
 
     </main>
     <script src="js/ajax.js"></script>

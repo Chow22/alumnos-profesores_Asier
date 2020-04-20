@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package com.ipartek.formacion.api.controller;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

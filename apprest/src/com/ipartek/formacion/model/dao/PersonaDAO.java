@@ -59,7 +59,7 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona getById(int id) throws Exception {
 		ArrayList<Persona> registros = new ArrayList<Persona>();
-		String sql = "SELECT id, nombre, avatar, sexo FROM persona 	WHERE id=" + id + ";";
+		String sql = "SELECT id, nombre, avatar, sexo FROM Persona 	WHERE id=" + id + ";";
 		Persona p = new Persona();
 
 		try (Connection con = ConnectionManager.getConnection();

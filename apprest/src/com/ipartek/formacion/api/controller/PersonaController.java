@@ -32,7 +32,6 @@ public class PersonaController {
 
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
 
-	private static int id = 1;
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private Validator validator = factory.getValidator();
@@ -40,7 +39,6 @@ public class PersonaController {
 	@Context
 	private ServletContext context;
 
-	private static ArrayList<Persona> personas = new ArrayList<Persona>();
 
 	static {
 
