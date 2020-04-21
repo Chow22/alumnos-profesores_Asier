@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `alumnos` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `alumnos`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: alumnos
@@ -28,6 +26,7 @@ CREATE TABLE `curso` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `precio` decimal(2,0) DEFAULT NULL,
+  `imagen` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +37,7 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (1,'Java',23),(2,'PHP',56),(3,'HTML',65);
+INSERT INTO `curso` VALUES (1,'Java',23,'java.png'),(2,'PHP',56,'php.png'),(3,'HTML',65,'html.png');
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +63,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Pablo','avatar1.png','h'),(2,'Raul','avatar3.png','h'),(3,'Ana','avatar2.png','m'),(4,'Pedro','avatar4.png','h'),(5,'Rosa','avatar5.png','m');
+INSERT INTO `persona` VALUES (1,'Pablo','avatar4.png','h'),(2,'Raul','avatar3.png','h'),(3,'Ana','avatar2.png','m');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +91,7 @@ CREATE TABLE `persona_has_curso` (
 
 LOCK TABLES `persona_has_curso` WRITE;
 /*!40000 ALTER TABLE `persona_has_curso` DISABLE KEYS */;
-INSERT INTO `persona_has_curso` VALUES (3,1),(1,2),(2,2);
+INSERT INTO `persona_has_curso` VALUES (2,1),(3,1),(1,2),(2,2);
 /*!40000 ALTER TABLE `persona_has_curso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -105,4 +104,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-20 15:59:39
+-- Dump completed on 2020-04-21 13:20:22
