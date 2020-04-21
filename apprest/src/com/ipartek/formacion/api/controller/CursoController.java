@@ -35,8 +35,8 @@ public class CursoController {
 	private static final Logger LOGGER = Logger.getLogger(CursoController.class.getCanonicalName());
 
 
-//	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//	private Validator validator = factory.getValidator();
+	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private Validator validator = factory.getValidator();
 
 	@Context
 	private ServletContext context;
@@ -69,82 +69,82 @@ public class CursoController {
 	
 	
 
-//	@POST
-//	public Response insert(Curso Curso) throws Exception {
-//		LOGGER.info("insert(" + Curso + ")");
-//		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
-//
-//		// validar pojo
-//		Set<ConstraintViolation<Curso>> violations = validator.validate(Curso);
-//
-//		if (violations.isEmpty()) {
-//
-//			CursoDAO CursoDAO = CursoDAO.getInstancia();
-//
-//			CursoDAO.insert(Curso);
-//
-//			response = Response.status(Status.CREATED).entity(Curso).build();
-//
-//		} else {
-//			ArrayList<String> errores = new ArrayList<String>();
-//			for (ConstraintViolation<Curso> violation : violations) {
-//				errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
-//			}
-//
-//			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
-//		}
-//
-//		return response;
-//
-//	}
-//
-//	@PUT
-//	@Path("/{id: \\d+}")
-//	public Response update(@PathParam("id") int id, Curso Curso) throws SQLException, Exception {
-//		LOGGER.info("update(" + id + ", " + Curso + ")");
-//		Response response = Response.status(Status.NOT_FOUND).entity(null).build();
-//
-//		// validar objeto Curso javax.validation
-//
-//		Set<ConstraintViolation<Curso>> violations = validator.validate(Curso);
-//
-//		if (violations.isEmpty()) {
-//			CursoDAO CursoDAO = CursoDAO.getInstancia();
-//			CursoDAO.update(Curso);
-//			response = Response.status(Status.OK).entity(Curso).build();
-//
-//		} else {
-//			ArrayList<String> errores = new ArrayList<String>();
-//			for (ConstraintViolation<Curso> violation : violations) {
-//				errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
-//			}
-//
-//			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
-//		}
-//
-//		return response;
-//
-//	}
-//
-//	@DELETE
-//	@Path("/{id: \\d+}")
-//	public Response eliminar(@PathParam("id") int id) {
-//		LOGGER.info("eliminar(" + id + ")");
-//		CursoDAO CursoDAO = CursoDAO.getInstancia();
-//		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
-//		Curso Curso = null;
-//		
-//		try {
-//			Curso=CursoDAO.delete(id);
-//			response = Response.status(Status.OK).entity(Curso).build();
-//			
-//		}catch (SQLException e) {
-//			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
-//			
-//		}catch (Exception e) {
-//			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
-//		}
-//		return response;
-//	}
+	@POST
+	public Response insert(Curso Curso) throws Exception {
+		LOGGER.info("insert(" + Curso + ")");
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+
+		// validar pojo
+		Set<ConstraintViolation<Curso>> violations = validator.validate(Curso);
+
+		if (violations.isEmpty()) {
+
+			CursoDAO cursoDAO = CursoDAO.getInstancia();
+
+			cursoDAO.insert(Curso);
+
+			response = Response.status(Status.CREATED).entity(Curso).build();
+
+		} else {
+			ArrayList<String> errores = new ArrayList<String>();
+			for (ConstraintViolation<Curso> violation : violations) {
+				errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
+			}
+
+			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
+		}
+
+		return response;
+
+	}
+
+	@PUT
+	@Path("/{id: \\d+}")
+	public Response update(@PathParam("id") int id, Curso Curso) throws SQLException, Exception {
+		LOGGER.info("update(" + id + ", " + Curso + ")");
+		Response response = Response.status(Status.NOT_FOUND).entity(null).build();
+
+		// validar objeto Curso javax.validation
+
+		Set<ConstraintViolation<Curso>> violations = validator.validate(Curso);
+
+		if (violations.isEmpty()) {
+			CursoDAO cursoDAO = CursoDAO.getInstancia();
+			cursoDAO.update(Curso);
+			response = Response.status(Status.OK).entity(Curso).build();
+
+		} else {
+			ArrayList<String> errores = new ArrayList<String>();
+			for (ConstraintViolation<Curso> violation : violations) {
+				errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
+			}
+
+			response = Response.status(Status.BAD_REQUEST).entity(errores).build();
+		}
+
+		return response;
+
+	}
+
+	@DELETE
+	@Path("/{id: \\d+}")
+	public Response eliminar(@PathParam("id") int id) {
+		LOGGER.info("eliminar(" + id + ")");
+		CursoDAO cursoDAO = CursoDAO.getInstancia();
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		Curso Curso = null;
+		
+		try {
+			Curso=cursoDAO.delete(id);
+			response = Response.status(Status.OK).entity(Curso).build();
+			
+		}catch (SQLException e) {
+			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
+			
+		}catch (Exception e) {
+			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
+		}
+		return response;
+	}
 
 }

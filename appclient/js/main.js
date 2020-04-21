@@ -50,12 +50,12 @@ function listener() {
     });
 
     let filtroCursos = document.getElementById('filtroCurso');
-    filtroCursos.addEventListener('keyup',  function(event) {
-        let filtro = filtroCursos.value.trim();        
-        if ( filtro.length >= 3 ){
+    filtroCursos.addEventListener('keyup', function (event) {
+        let filtro = filtroCursos.value.trim();
+        if (filtro.length >= 3) {
             console.debug('filtroCursos keyup ' + filtro);
             cargarCursosTodos(filtro);
-        }else{
+        } else {
             cargarCursosTodos();
         }
 
@@ -69,7 +69,7 @@ function pintarLista(alumnosJSON) {
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
     alumnosJSON.forEach((p, i) => lista.innerHTML += `<li>
-                                                            <img src="img/${p.avatar}" alt="avatar">${p.nombre}
+                                                            <img src="img/${p.avatar}" alt="avatar"><h4>${p.nombre}</h4> <span>Numero de cursos ${p.cursos.length}</span><br>
                                                             <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
                                                             <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
                                                         </li>` );
@@ -89,9 +89,9 @@ function filtrarSexo() {
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
     personasFiltradas.forEach((p, i) => lista.innerHTML += `<li>
-                                                            <img src="img/${p.avatar}" alt="avatar">${p.nombre}
-                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
-                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
+                                                                <img src="img/${p.avatar}" alt="avatar"><h4>${p.nombre}</h4> <span>Numero de cursos ${p.cursos.length}</span><br>
+                                                                <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
+                                                                <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
                                                         </li>` );
 }
 
@@ -110,7 +110,7 @@ function eliminar(id) {
 
             })
             .catch(error => {
-                console.warn('promesa rejectada %o', error );
+                console.warn('promesa rejectada %o', error);
                 alert(error.informacion);
             });
 
@@ -132,6 +132,7 @@ function seleccionar(id) {
     document.getElementById('inputId').value = personaSeleccionada.id;
     document.getElementById('inputNombre').value = personaSeleccionada.nombre;
     document.getElementById('inputAvatar').value = personaSeleccionada.avatar;
+    cargarCursosComprados(personaSeleccionada.cursos);
 
     const sexo = personaSeleccionada.sexo;
     let checkHombre = document.getElementById('sexoh');
@@ -252,9 +253,9 @@ function selectAvatar(evento) {
 
 }
 
-function cargarCursosTodos(filtro='') {
-    let cursos=[];
-    let uri='http://localhost:8080/apprest/api/cursos/?filtro=' + filtro;
+function cargarCursosTodos(filtro = '') {
+    let cursos = [];
+    let uri = 'http://localhost:8080/apprest/api/cursos/?filtro=' + filtro;
     const promesa = ajax("GET", uri, undefined);
     promesa
         .then(data => {
@@ -264,8 +265,8 @@ function cargarCursosTodos(filtro='') {
             let lista = document.getElementById('cursosLista');
             lista.innerHTML = '';
             cursos.forEach((c, i) => lista.innerHTML += `<li>
-                                                                    <img src="${c.imagen}" alt="">
-                                                                    <h5>${c.id} ${c.nombre}  ${c.precio}</h5>
+                                                                    <img class="imagenesCurso" src="imagenes/${c.imagen}" alt="">
+                                                                    ${c.id} ${c.nombre}  ${c.precio}
                                                                     <span class="glyphicon glyphicon-plus" ></span>
                                                                 </li>` );
 
@@ -276,6 +277,11 @@ function cargarCursosTodos(filtro='') {
 
 }
 
-function cargarCursosComprados(idAlumno) {
-    
+function cargarCursosComprados(cursos) {
+    let lista = document.getElementById('cursosAlumno');
+    lista.innerHTML="";
+    cursos.forEach((c, i) => lista.innerHTML += `<li>
+                                                    <img class="imagenesCurso" src="imagenes/${c.imagen}" alt="">
+                                                    ${c.id} ${c.nombre}  ${c.precio}
+                                                </li>` );
 }
