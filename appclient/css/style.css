@@ -1,12 +1,22 @@
 h1{ 
-    background-color: darkturquoise;
+    background-color: #3390FF;
     color: #FFF;
     font-size: 2rem;
+    margin-top: 0;
 }
 
-.imagenesCurso{
-  width: 5em;
-  height: 5em;
+.container {
+  width: auto;
+}
+
+.iconos{
+  display: inline;
+  float: right;
+}
+
+.icono:hover  {
+  color: #3390FF;
+  cursor: pointer;
 }
 
 .seleccion{
