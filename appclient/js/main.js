@@ -71,8 +71,8 @@ function pintarLista(alumnosJSON) {
     lista.innerHTML = '';
     alumnosJSON.forEach((p, i) => lista.innerHTML += `<li>
                                                             <img src="img/${p.avatar}" alt="avatar">${p.nombre}
-                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${i})"></span>
-                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${i})"></span>
+                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
+                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
                                                         </li>` );
 };
 
@@ -91,13 +91,13 @@ function filtrarSexo() {
     lista.innerHTML = '';
     personasFiltradas.forEach((p, i) => lista.innerHTML += `<li>
                                                             <img src="img/${p.avatar}" alt="avatar">${p.nombre}
-                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${i})"></span>
-                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${i})"></span>
+                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
+                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
                                                         </li>` );
 }
 
-function eliminar(indice) {
-    let personaSeleccionada = personas[indice];
+function eliminar(id) {
+    let personaSeleccionada = personas.find(persona => persona.id == id);
     console.debug('click eliminar persona %o', personaSeleccionada);
     const mensaje = `¿Estas seguro que quieres eliminar  a ${personaSeleccionada.nombre} ?`;
     if (confirm(mensaje)) {
@@ -119,12 +119,12 @@ function eliminar(indice) {
 
 }
 
-function seleccionar(indice) {
+function seleccionar(id) {
 
     let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
 
-    if (indice >= 0) {
-        personaSeleccionada = personas[indice];
+    if (id >= 0) {
+        personaSeleccionada = personas.find(persona => persona.id == id);
     }
 
     console.debug('click guardar persona %o', personaSeleccionada);
