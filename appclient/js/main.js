@@ -1,6 +1,7 @@
 // fichero javascript para app
 const endpoint = 'http://localhost:8080/apprest/api/personas/';
 let personas = [];
+let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
 
 window.addEventListener('load', init());
 
@@ -68,11 +69,23 @@ function pintarLista(alumnosJSON) {
 
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
-    alumnosJSON.forEach((p, i) => lista.innerHTML += `<li>
-                                                            <img src="img/${p.avatar}" alt="avatar"><h4>${p.nombre}</h4> <span>Numero de cursos ${p.cursos.length}</span><br>
-                                                            <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
-                                                            <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
-                                                        </li>` );
+    alumnosJSON.forEach((p, i) => lista.innerHTML += `<div class="well well-sm">
+                                            <div class="row">
+                                            <div class="col-xs-3 col-md-3 text-center">
+                                                <img src="img/${p.avatar}" alt=""
+                                                    class="img-rounded img-responsive" />
+                                            </div>
+                                            <div class="col-xs-9 col-md-9 section-box">
+                                                <h2>
+                                                ${p.nombre}  <div class="iconos">  <span class="icono glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
+                                                <span class="icono glyphicon glyphicon-trash icono" onclick="eliminar(${p.id})"></span></div>
+                                                </h2>
+                                                <h4>Numero de cursos: ${p.cursos.length}</h4>
+                                            </div>
+                                        </div>
+                                        </div> 
+    
+    ` );
 };
 
 function filtrarSexo() {
@@ -88,11 +101,22 @@ function filtrarSexo() {
     //pintar la lista filtrada
     let lista = document.getElementById('alumnos');
     lista.innerHTML = '';
-    personasFiltradas.forEach((p, i) => lista.innerHTML += `<li>
-                                                                <img src="img/${p.avatar}" alt="avatar"><h4>${p.nombre}</h4> <span>Numero de cursos ${p.cursos.length}</span><br>
-                                                                <span class="glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
-                                                                <span class="glyphicon glyphicon-trash" onclick="eliminar(${p.id})"></span>
-                                                        </li>` );
+    personasFiltradas.forEach((p, i) => lista.innerHTML += `<div class="well well-sm">
+                                                        <div class="row">
+                                                                <div class="col-xs-3 col-md-3 text-center">
+                                                                    <img src="img/${p.avatar}" alt=""
+                                                                        class="img-rounded img-responsive" />
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-9 section-box">
+                                                                <h2>
+                                                                ${p.nombre}    <div class="iconos"> <span class="icono glyphicon glyphicon-pencil" onclick="seleccionar(${p.id})"></span>
+                                                                <span class="icono glyphicon glyphicon-trash icono" onclick="eliminar(${p.id})"></span></div>
+                                                                </h2>
+                                                                <h4>Numero de cursos: ${p.cursos.length}</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+` );
 }
 
 function eliminar(id) {
@@ -118,9 +142,8 @@ function eliminar(id) {
 
 }
 
-function seleccionar(id) {
 
-    let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
+function seleccionar(id) {
 
     if (id >= 0) {
         personaSeleccionada = personas.find(persona => persona.id == id);
@@ -264,11 +287,21 @@ function cargarCursosTodos(filtro = '') {
             console.info(cursos);
             let lista = document.getElementById('cursosLista');
             lista.innerHTML = '';
-            cursos.forEach((c, i) => lista.innerHTML += `<li>
-                                                                    <img class="imagenesCurso" src="imagenes/${c.imagen}" alt="">
-                                                                    ${c.id} ${c.nombre}  ${c.precio}
-                                                                    <span class="glyphicon glyphicon-plus" ></span>
-                                                                </li>` );
+            cursos.forEach((c, i) => lista.innerHTML += `<div class="well well-sm">
+                                                            <div class="row">
+                                                                <div class="col-xs-3 col-md-3 text-center">
+                                                                    <img src="imagenes/${c.imagen}" alt=""
+                                                                        class="img-rounded img-responsive" />
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-9 section-box">
+                                                                    <h2>
+                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-plus" onClick="asignarCurso( 0, ${c.id})">
+                                                                        </span></div>
+                                                                    </h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>            
+            ` );
 
         }).catch(error => {
             console.warn('promesa rejectada');
@@ -280,8 +313,55 @@ function cargarCursosTodos(filtro = '') {
 function cargarCursosComprados(cursos) {
     let lista = document.getElementById('cursosAlumno');
     lista.innerHTML="";
-    cursos.forEach((c, i) => lista.innerHTML += `<li>
-                                                    <img class="imagenesCurso" src="imagenes/${c.imagen}" alt="">
-                                                    ${c.id} ${c.nombre}  ${c.precio}
-                                                </li>` );
+    cursos.forEach((c, i) => lista.innerHTML += `
+    <div class="well well-sm">
+                                                            <div class="row">
+                                                                <div class="col-xs-3 col-md-3 text-center">
+                                                                    <img src="imagenes/${c.imagen}" alt=""
+                                                                        class="img-rounded img-responsive" />
+                                                                </div>
+                                                                <div class="col-xs-9 col-md-9 section-box">
+                                                                    <h2>
+                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(${personaSeleccionada.id},${c.id})">
+                                                                        </span></div>
+                                                                    </h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+    
+    ` );
+}
+
+function eliminarCurso( idPersona, idCurso ){
+
+    const url = endpoint + idPersona + "/curso/" + idCurso;
+    ajax('DELETE', url, undefined)
+    .then( data => {
+        alert('Curso Eliminado');
+
+        //FIXME falta quitar curso del formulario, problema Asincronismo
+        conseguirAlumnos();
+        seleccionar(idPersona);
+    })
+    .catch( error => alert(error));
+
+}
+
+function asignarCurso( idPersona = 0, idCurso ){
+
+    idPersona = (idPersona != 0) ? idPersona : personaSeleccionada.id;
+
+    console.debug(`click asignarCurso idPersona=${idPersona} idCurso=${idCurso}`);
+
+    const url = endpoint + idPersona + "/curso/" + idCurso;
+    ajax('POST', url, undefined)
+    .then( data => {
+        alert('Curso Asignado');
+
+        //FIXME falta pintar curso del formulario, problema Asincronismo
+        conseguirAlumnos();
+        seleccionar(idPersona);
+    })
+    .catch( error => alert(error));
+
 }

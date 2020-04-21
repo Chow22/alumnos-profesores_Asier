@@ -31,6 +31,7 @@ import com.ipartek.formacion.model.dao.PersonaDAO;
 public class PersonaController {
 
 	private static final Logger LOGGER = Logger.getLogger(PersonaController.class.getCanonicalName());
+	PersonaDAO personaDAO = PersonaDAO.getInstancia();
 
 
 	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -127,7 +128,7 @@ public class PersonaController {
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		ResponseBody responseBody = new ResponseBody();
 		Persona persona = null;
-		PersonaDAO personaDAO = PersonaDAO.getInstancia();
+
 
 		try {
 			persona = personaDAO.delete(id);			
@@ -151,5 +152,56 @@ public class PersonaController {
 		}
 		return response;
 	}
+	
+	
+	@POST
+	@Path("/{idPersona}/curso/{idCurso}")
+	public Response asignarCurso(@PathParam("idPersona") int idPersona, @PathParam("idCurso") int idCurso) {
+		LOGGER.info("asignarCurso idPersona=" + idPersona + " idCurso= " + idCurso);
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
+
+		try {		
+			personaDAO.asignarCurso(idPersona, idCurso);
+			Persona p = personaDAO.getById(idPersona);
+			
+			responseBody.setInformacion("curso asigando con exito");
+			responseBody.setData(p);
+			response = Response.status(Status.CREATED).entity(responseBody).build();
+			
+		} catch (Exception e) {			
+				responseBody.setInformacion(e.getMessage());
+				response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+		}
+
+		return response;
+
+	}
+	
+	
+	@DELETE
+	@Path("/{idPersona}/curso/{idCurso}")
+	public Response eliminarCurso(@PathParam("idPersona") int idPersona, @PathParam("idCurso") int idCurso) {
+		LOGGER.info("eliminarCurso idPersona=" + idPersona + " idCurso= " + idCurso);
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
+
+		try {		
+			personaDAO.eliminarCurso(idPersona, idCurso);
+			Persona p = personaDAO.getById(idPersona);
+			
+			responseBody.setInformacion("curso eliminado con exito");
+			responseBody.setData(p);
+			response = Response.status(Status.OK).entity(responseBody).build();
+			
+		} catch (Exception e) {			
+				responseBody.setInformacion(e.getMessage());
+				response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
+		}
+
+		return response;
+
+	}
+	
 
 }

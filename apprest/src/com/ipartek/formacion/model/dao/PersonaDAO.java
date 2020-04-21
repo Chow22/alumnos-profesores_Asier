@@ -173,5 +173,51 @@ public class PersonaDAO implements IDAO<Persona> {
 		hm.put(key, p);
 
 	}
+	
+	public boolean asignarCurso( int idPersona, int idCurso ) throws Exception, SQLException {
+		boolean resul = false;
+		String sql="INSERT INTO persona_has_curso (persona_id, curso_id) VALUES ( ?, ?);";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql);
+		) {
+
+			pst.setInt(1, idPersona);
+			pst.setInt(2, idCurso);
+			LOGGER.info(pst.toString());
+			
+			//eliminamos la persona
+			int affetedRows = pst.executeUpdate();	
+			if (affetedRows == 1) {
+				resul = true;
+			}else {
+				resul = false;		
+			}
+		}
+		
+		return resul;
+	}
+	
+	public boolean eliminarCurso( int idPersona, int idCurso ) throws Exception, SQLException {
+		boolean resul = false;
+		String sql="DELETE FROM persona_has_curso WHERE persona_id = ? AND curso_id = ?;  ";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql);
+		) {
+
+			pst.setInt(1, idPersona);
+			pst.setInt(2, idCurso);
+			LOGGER.info(pst.toString());
+			
+			//eliminamos la persona
+			int affetedRows = pst.executeUpdate();	
+			if (affetedRows == 1) {
+				resul = true;
+			}else {
+				throw new Exception("No se encontrado registro id_persona =" + idPersona + " id_curso=" + idCurso );		
+			}
+		}
+		
+		return resul;
+	}
 
 }
