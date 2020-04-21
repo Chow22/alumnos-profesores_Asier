@@ -62,7 +62,6 @@ public class PersonaController {
 	public Response insert(Persona persona) {
 		LOGGER.info("insert(" + persona + ")");
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
-		PersonaDAO personaDAO = PersonaDAO.getInstancia();
 
 		// validar pojo
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
@@ -103,7 +102,6 @@ public class PersonaController {
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 
 		if (violations.isEmpty()) {
-			PersonaDAO personaDAO = PersonaDAO.getInstancia();
 			personaDAO.update(persona);
 			response = Response.status(Status.OK).entity(persona).build();
 
