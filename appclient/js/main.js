@@ -9,7 +9,6 @@ function init() {
     listener();
     initGallery();
     conseguirAlumnos();
-    cargarCursosTodos()
     console.debug('continua la ejecuion del script de forma sincrona');
 
 }
@@ -111,8 +110,8 @@ function eliminar(id) {
 
             })
             .catch(error => {
-                console.warn('promesa rejectada');
-                alert(error);
+                console.warn('promesa rejectada %o', error );
+                alert(error.informacion);
             });
 
     }

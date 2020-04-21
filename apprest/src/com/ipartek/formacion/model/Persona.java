@@ -1,5 +1,7 @@
 package com.ipartek.formacion.model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -10,20 +12,23 @@ public class Persona {
 	@Size( min=2, max = 50, message = "minimo 2 maximo 50 carcateres" )
 	private String nombre;	
 	
-	@NotEmpty(message = "No puede estar el campo vacio" )
+	@NotEmpty
 	private String avatar;
 	
 	//TODO regexp para "h" o "m"
 	// @Pattern(regexp = "" )
 	private String sexo;
 	
-
+	private ArrayList<Curso> cursos;
+	
+	
 	public Persona() {
 		super();
 		this.id = 0;
 		this.nombre = "";		
 		this.avatar = "avatar1.png";
 		this.sexo = "";
+		this.cursos = new ArrayList<Curso>();
 	}
 
 	public Persona(int id, String nombre, String avatar, String sexo) {		
@@ -67,11 +72,19 @@ public class Persona {
 		this.sexo = sexo;
 	}
 
-	@Override
-	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + "]";
+	public ArrayList<Curso> getCursos() {
+		return cursos;
 	}
 
+	public void setCursos(ArrayList<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", avatar=" + avatar + ", sexo=" + sexo + ", cursos="
+				+ cursos + "]";
+	}
 	
 	
 }

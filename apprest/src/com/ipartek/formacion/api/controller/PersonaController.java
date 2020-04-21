@@ -58,20 +58,25 @@ public class PersonaController {
 	}
 
 	@POST
-	public Response insert(Persona persona) throws Exception {
+	public Response insert(Persona persona) {
 		LOGGER.info("insert(" + persona + ")");
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		PersonaDAO personaDAO = PersonaDAO.getInstancia();
 
 		// validar pojo
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
-
 		if (violations.isEmpty()) {
 
-			PersonaDAO personaDAO = PersonaDAO.getInstancia();
+			try {
+				personaDAO.insert(persona);
+				response = Response.status(Status.CREATED).entity(persona).build();
 
-			personaDAO.insert(persona);
+			} catch (Exception e) {
 
-			response = Response.status(Status.CREATED).entity(persona).build();
+				ResponseBody responseBody = new ResponseBody();
+				responseBody.setInformacion("nombre duplicado");
+				response = Response.status(Status.CONFLICT).entity(responseBody).build();
+			}
 
 		} else {
 			ArrayList<String> errores = new ArrayList<String>();
@@ -118,19 +123,31 @@ public class PersonaController {
 	@Path("/{id: \\d+}")
 	public Response eliminar(@PathParam("id") int id) {
 		LOGGER.info("eliminar(" + id + ")");
-		PersonaDAO personaDAO = PersonaDAO.getInstancia();
+
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		ResponseBody responseBody = new ResponseBody();
 		Persona persona = null;
-		
+		PersonaDAO personaDAO = PersonaDAO.getInstancia();
+
 		try {
-			persona=personaDAO.delete(id);
-			response = Response.status(Status.OK).entity(persona).build();
-			
-		}catch (SQLException e) {
-			response = Response.status(Status.CONFLICT).entity(e.getMessage()).build();
-			
-		}catch (Exception e) {
-			response = Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
+			persona = personaDAO.delete(id);			
+			responseBody.setData(persona);
+			responseBody.setInformacion("persona eliminada");
+
+			responseBody.getHypermedias()
+					.add(new Hipermedia("listado personas", "GET", "http://localhost:8080/apprest/api/personas/"));
+			responseBody.getHypermedias()
+					.add(new Hipermedia("detalle personas", "GET", "http://localhost:8080/apprest/api/personas/{id}"));
+
+			response = Response.status(Status.OK).entity(responseBody).build();
+
+		} catch (SQLException e) {
+			responseBody.setInformacion("No se puede elminar porque tiene cursos activos");
+			response = Response.status(Status.CONFLICT).entity(responseBody).build();
+
+		} catch (Exception e) {
+			responseBody.setInformacion("persona no encontrada");
+			response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
 		}
 		return response;
 	}
