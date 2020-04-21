@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.ipartek.formacion.model.Curso;
 
 public class CursoDAO implements IDAO<Curso> {
+	private static final Logger LOGGER = Logger.getLogger(CursoDAO.class.getCanonicalName());
 	// SINGLETON
 
 	private final static CursoDAO INSTANCIA = new CursoDAO();
@@ -54,6 +56,36 @@ public class CursoDAO implements IDAO<Curso> {
 
 		return registros;
 	}
+	
+	public List<Curso> getPorNombre( String buscador ) {
+		LOGGER.info("getPorNombre");		
+		ArrayList<Curso> registros = new ArrayList<Curso>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement("SELECT * FROM curso WHERE nombre LIKE ? ORDER BY id DESC LIMIT 500; ");
+				) {
+
+			pst.setString(1,"%"+buscador+"%");
+			
+			try( ResultSet rs = pst.executeQuery() ){
+				LOGGER.info(pst.toString());			
+				while( rs.next() ) {	
+					
+					Curso c = new Curso();
+					c.setId(rs.getInt("id"));
+					c.setNombre(rs.getString("nombre"));
+					c.setPrecio(Float.parseFloat(rs.getString("precio")));
+					
+					registros.add(c);				
+				}	
+			}	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();		
+		}
+		return registros;
+	}
+	
+	
 //
 //	@Override
 //	public Curso getById(int id) throws Exception {

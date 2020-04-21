@@ -18,6 +18,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -34,8 +35,8 @@ public class CursoController {
 	private static final Logger LOGGER = Logger.getLogger(CursoController.class.getCanonicalName());
 
 
-	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-	private Validator validator = factory.getValidator();
+//	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//	private Validator validator = factory.getValidator();
 
 	@Context
 	private ServletContext context;
@@ -44,14 +45,29 @@ public class CursoController {
 	public CursoController() {
 		super();
 	}
-
 	@GET
-	public ArrayList<Curso> getAll() {
-		LOGGER.info("getAll");
+	public Response getAll( @QueryParam("filtro") String filtro ) {
+		
+		LOGGER.info("getAll " + filtro);		
+		ArrayList<Curso> registros = new ArrayList<Curso>(); 
 		CursoDAO cursoDAO = CursoDAO.getInstancia();
-		ArrayList<Curso> registros = (ArrayList<Curso>) cursoDAO.getAll();
-		return registros;
+		
+		
+		if ( filtro != null && !"".equals(filtro.trim())) {
+			registros = (ArrayList<Curso>) cursoDAO.getPorNombre(filtro);
+			
+		}else {
+			registros = (ArrayList<Curso>) cursoDAO.getAll();			
+			
+		}
+		
+		Response response = Response.status(Status.OK).entity(registros).build();
+		
+		return response;
 	}
+	
+	
+	
 
 //	@POST
 //	public Response insert(Curso Curso) throws Exception {
