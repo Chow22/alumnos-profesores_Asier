@@ -128,9 +128,9 @@ function eliminar(id) {
 
 function seleccionar(id) {
 
-    let detalle=document.getElementById("detalle");
+    let detalle = document.getElementById("detalle");
     detalle.classList.add('magictime', 'slideRightReturn');
-    detalle.style.display="block";
+    detalle.style.display = "block";
 
     if (id >= 0) {
         personaSeleccionada = personas.find(persona => persona.id == id);
@@ -143,6 +143,15 @@ function seleccionar(id) {
     document.getElementById('inputNombre').value = personaSeleccionada.nombre;
     document.getElementById('inputAvatar').value = personaSeleccionada.avatar;
     cargarCursosComprados(personaSeleccionada.cursos);
+
+    //seleccionar Avatar
+    const avatares = document.querySelectorAll('#gallery img');
+    avatares.forEach(el => {
+        el.classList.remove('selected');
+        if ("img/" + personaSeleccionada.avatar == el.dataset.path) {
+            el.classList.add('selected');
+        }
+    });
 
     const sexo = personaSeleccionada.sexo;
     let checkHombre = document.getElementById('sexoh');
@@ -316,7 +325,7 @@ function cargarCursosTodos(filtro = '') {
 
 function cargarCursosComprados(cursos) {
     let lista = document.getElementById('cursosAlumno');
-    lista.innerHTML="";
+    lista.innerHTML = "";
     cursos.forEach((c, i) => lista.innerHTML += `
     <div class="well well-sm" id="tarjeta${c.id}">
                                                             <div class="row">
@@ -336,22 +345,22 @@ function cargarCursosComprados(cursos) {
     ` );
 }
 
-function eliminarCurso(event, idPersona, idCurso ){
+function eliminarCurso(event, idPersona, idCurso) {
     const url = endpoint + idPersona + "/curso/" + idCurso;
     ajax('DELETE', url, undefined)
-    .then( data => {
+        .then(data => {
 
-        let tarjeta =document.getElementById("tarjeta"+idCurso);
-        tarjeta.remove();
+            let tarjeta = document.getElementById("tarjeta" + idCurso);
+            tarjeta.remove();
 
-        conseguirAlumnos();
-      
-    })
-    .catch( error => alert(error));
+            conseguirAlumnos();
+
+        })
+        .catch(error => alert(error));
 
 }
 
-function asignarCurso( idPersona = 0, idCurso ){
+function asignarCurso(idPersona = 0, idCurso) {
 
     idPersona = (idPersona != 0) ? idPersona : personaSeleccionada.id;
 
@@ -359,13 +368,13 @@ function asignarCurso( idPersona = 0, idCurso ){
 
     const url = endpoint + idPersona + "/curso/" + idCurso;
     ajax('POST', url, undefined)
-    .then( data => {
-  
+        .then(data => {
 
-        const c = data.data;
-    
-        let lista = document.getElementById('cursosAlumno');        
-        lista.innerHTML += `
+
+            const c = data.data;
+
+            let lista = document.getElementById('cursosAlumno');
+            lista.innerHTML += `
                             <div class="well well-sm magictime spaceInLeft" id="tarjeta${c.id}">
                             <div class="row">
                                 <div class="col-xs-3 col-md-3 text-center">
@@ -381,11 +390,11 @@ function asignarCurso( idPersona = 0, idCurso ){
                             </div>
                         </div>   
                                  
-                            `;                        
-        
-        conseguirAlumnos();
-        
-    })
-    .catch( error => alert(error));
+                            `;
+
+            conseguirAlumnos();
+
+        })
+        .catch(error => alert(error));
 
 }
