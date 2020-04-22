@@ -295,7 +295,7 @@ function cargarCursosTodos(filtro = '') {
                                                                 </div>
                                                                 <div class="col-xs-9 col-md-9 section-box">
                                                                     <h2>
-                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-plus" onClick="asignarCurso(0, ${c.id})">
+                                                                    Curso: ${c.nombre}<br> Precio: ${c.precio} €    <div class="iconos">   <span class="icono glyphicon glyphicon-plus" onClick="asignarCurso(0, ${c.id})">
                                                                         </span></div>
                                                                     </h2>
                                                                 </div>
@@ -322,7 +322,7 @@ function cargarCursosComprados(cursos) {
                                                                 </div>
                                                                 <div class="col-xs-9 col-md-9 section-box">
                                                                     <h2>
-                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${c.id})">
+                                                                    Curso: ${c.nombre}<br> Precio: ${c.precio} € <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${c.id})">
                                                                         </span></div>
                                                                     </h2>
                                                                 </div>
@@ -371,7 +371,7 @@ function asignarCurso( idPersona = 0, idCurso ){
                                 </div>
                                 <div class="col-xs-9 col-md-9 section-box">
                                     <h2>
-                                    ${curso.id} ${curso.nombre}  ${curso.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${curso.id})">
+                                    Curso: ${c.nombre}<br> Precio: ${c.precio} €   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${curso.id})">
                                         </span></div>
                                     </h2>
                                 </div>
