@@ -128,6 +128,10 @@ function eliminar(id) {
 
 function seleccionar(id) {
 
+    let detalle=document.getElementById("detalle");
+    detalle.classList.add('magictime', 'slideRightReturn');
+    detalle.style.display="block";
+
     if (id >= 0) {
         personaSeleccionada = personas.find(persona => persona.id == id);
     }
@@ -337,8 +341,9 @@ function eliminarCurso(event, idPersona, idCurso ){
     ajax('DELETE', url, undefined)
     .then( data => {
 
+        let tarjeta =document.getElementById("tarjeta"+idCurso);
+        tarjeta.remove();
 
-        document.getElementById("tarjeta"+idCurso).remove();
         conseguirAlumnos();
       
     })
@@ -357,21 +362,19 @@ function asignarCurso( idPersona = 0, idCurso ){
     .then( data => {
   
 
-        alert(data.informacion);
-
-        const curso = data.data;
+        const c = data.data;
     
         let lista = document.getElementById('cursosAlumno');        
         lista.innerHTML += `
-                            <div class="well well-sm" id="tarjeta${curso.id}">
+                            <div class="well well-sm magictime spaceInLeft" id="tarjeta${c.id}">
                             <div class="row">
                                 <div class="col-xs-3 col-md-3 text-center">
-                                    <img src="imagenes/${curso.imagen}" alt=""
+                                    <img src="imagenes/${c.imagen}" alt=""
                                         class="img-rounded img-responsive" />
                                 </div>
                                 <div class="col-xs-9 col-md-9 section-box">
                                     <h2>
-                                    Curso: ${c.nombre}<br> Precio: ${c.precio} €   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${curso.id})">
+                                    Curso: ${c.nombre}<br> Precio: ${c.precio} €   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${c.id})">
                                         </span></div>
                                     </h2>
                                 </div>
