@@ -14,23 +14,6 @@ function init() {
 
 }
 
-function conseguirAlumnos() {
-    document.getElementById("selectorSexo").selectedIndex = 0;
-
-    const promesa = ajax("GET", endpoint, undefined);
-    promesa
-        .then(data => {
-            console.trace('promesa resolve');
-            personas = data;
-            pintarLista(personas);
-
-        }).catch(error => {
-            console.warn('promesa rejectada');
-            alert(error);
-        });
-
-}
-
 function listener() {
 
     let selectorSexo = document.getElementById('selectorSexo');
@@ -149,7 +132,7 @@ function seleccionar(id) {
         personaSeleccionada = personas.find(persona => persona.id == id);
     }
 
-    console.debug('click guardar persona %o', personaSeleccionada);
+    console.debug('click sleccionsr persona %o', personaSeleccionada);
 
     //rellernar formulario
     document.getElementById('inputId').value = personaSeleccionada.id;
@@ -276,6 +259,23 @@ function selectAvatar(evento) {
 
 }
 
+function conseguirAlumnos() {
+    document.getElementById("selectorSexo").selectedIndex = 0;
+
+    const promesa = ajax("GET", endpoint, undefined);
+    promesa
+        .then(data => {
+            console.trace('promesa resolve');
+            personas = data;
+            pintarLista(personas);
+
+        }).catch(error => {
+            console.warn('promesa rejectada');
+            alert(error);
+        });
+
+}
+
 function cargarCursosTodos(filtro = '') {
     let cursos = [];
     let uri = 'http://localhost:8080/apprest/api/cursos/?filtro=' + filtro;
@@ -295,7 +295,7 @@ function cargarCursosTodos(filtro = '') {
                                                                 </div>
                                                                 <div class="col-xs-9 col-md-9 section-box">
                                                                     <h2>
-                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-plus" onClick="asignarCurso( 0, ${c.id})">
+                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-plus" onClick="asignarCurso(0, ${c.id})">
                                                                         </span></div>
                                                                     </h2>
                                                                 </div>
@@ -314,7 +314,7 @@ function cargarCursosComprados(cursos) {
     let lista = document.getElementById('cursosAlumno');
     lista.innerHTML="";
     cursos.forEach((c, i) => lista.innerHTML += `
-    <div class="well well-sm">
+    <div class="well well-sm" id="tarjeta${c.id}">
                                                             <div class="row">
                                                                 <div class="col-xs-3 col-md-3 text-center">
                                                                     <img src="imagenes/${c.imagen}" alt=""
@@ -322,7 +322,7 @@ function cargarCursosComprados(cursos) {
                                                                 </div>
                                                                 <div class="col-xs-9 col-md-9 section-box">
                                                                     <h2>
-                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(${personaSeleccionada.id},${c.id})">
+                                                                    ${c.id} ${c.nombre}  ${c.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${c.id})">
                                                                         </span></div>
                                                                     </h2>
                                                                 </div>
@@ -332,16 +332,15 @@ function cargarCursosComprados(cursos) {
     ` );
 }
 
-function eliminarCurso( idPersona, idCurso ){
-
+function eliminarCurso(event, idPersona, idCurso ){
     const url = endpoint + idPersona + "/curso/" + idCurso;
     ajax('DELETE', url, undefined)
     .then( data => {
-        alert('Curso Eliminado');
 
-        //FIXME falta quitar curso del formulario, problema Asincronismo
+
+        document.getElementById("tarjeta"+idCurso).remove();
         conseguirAlumnos();
-        seleccionar(idPersona);
+      
     })
     .catch( error => alert(error));
 
@@ -356,11 +355,33 @@ function asignarCurso( idPersona = 0, idCurso ){
     const url = endpoint + idPersona + "/curso/" + idCurso;
     ajax('POST', url, undefined)
     .then( data => {
-        alert('Curso Asignado');
+  
 
-        //FIXME falta pintar curso del formulario, problema Asincronismo
+        alert(data.informacion);
+
+        const curso = data.data;
+    
+        let lista = document.getElementById('cursosAlumno');        
+        lista.innerHTML += `
+                            <div class="well well-sm" id="tarjeta${curso.id}">
+                            <div class="row">
+                                <div class="col-xs-3 col-md-3 text-center">
+                                    <img src="imagenes/${curso.imagen}" alt=""
+                                        class="img-rounded img-responsive" />
+                                </div>
+                                <div class="col-xs-9 col-md-9 section-box">
+                                    <h2>
+                                    ${curso.id} ${curso.nombre}  ${curso.precio}   <div class="iconos">   <span class="icono glyphicon glyphicon-trash" onclick="eliminarCurso(event,${personaSeleccionada.id},${curso.id})">
+                                        </span></div>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>   
+                                 
+                            `;                        
+        
         conseguirAlumnos();
-        seleccionar(idPersona);
+        
     })
     .catch( error => alert(error));
 

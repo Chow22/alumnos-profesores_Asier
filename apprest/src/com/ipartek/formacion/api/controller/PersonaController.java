@@ -22,7 +22,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.ipartek.formacion.model.Curso;
 import com.ipartek.formacion.model.Persona;
+import com.ipartek.formacion.model.dao.CursoDAO;
 import com.ipartek.formacion.model.dao.PersonaDAO;
 
 @Path("/personas")
@@ -51,7 +53,7 @@ public class PersonaController {
 
 	@GET
 	public ArrayList<Persona> getAll() {
-		LOGGER.info("getAll");
+		LOGGER.info("getAllPersonas");
 		PersonaDAO personaDAO = PersonaDAO.getInstancia();
 		// return personas;
 		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
@@ -158,13 +160,14 @@ public class PersonaController {
 		LOGGER.info("asignarCurso idPersona=" + idPersona + " idCurso= " + idCurso);
 		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
 		ResponseBody responseBody = new ResponseBody();
+		CursoDAO cursoDAO = CursoDAO.getInstancia();
 
 		try {		
 			personaDAO.asignarCurso(idPersona, idCurso);
-			Persona p = personaDAO.getById(idPersona);
+			Curso c = cursoDAO.getById(idCurso);
 			
 			responseBody.setInformacion("curso asigando con exito");
-			responseBody.setData(p);
+			responseBody.setData(c);
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
 		} catch (Exception e) {			

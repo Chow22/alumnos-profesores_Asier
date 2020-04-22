@@ -88,34 +88,39 @@ public class CursoDAO implements IDAO<Curso> {
 	}
 	
 	
-
 	@Override
 	public Curso getById(int id) throws Exception {
-		ArrayList<Curso> registros = new ArrayList<Curso>();
-		String sql = "SELECT id, nombre, avatar, sexo FROM Curso 	WHERE id=" + id + ";";
-		Curso c = new Curso();
-
+		String sql="SELECT id, nombre, precio, imagen FROM curso WHERE id = ?; ";
+		Curso registro = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql);
-				ResultSet rs = pst.executeQuery();
-
 		) {
 
-			while (rs.next()) {
-
-				c.setId(rs.getInt("id"));
-				c.setNombre(rs.getString("nombre"));
-				c.setImagen(rs.getString("imagen"));
-				c.setPrecio(rs.getFloat("precio"));
-
+			pst.setInt(1, id);
+			LOGGER.info(pst.toString());
+			
+			try( ResultSet rs = pst.executeQuery() ){			
+				
+				if( rs.next() ) {					
+					Curso c = new Curso();
+					c.setId(rs.getInt("id"));
+					c.setNombre(rs.getString("nombre"));
+					c.setImagen(rs.getString("imagen"));
+					c.setPrecio(rs.getFloat("precio"));
+					
+					registro=c;	
+				}else {
+					throw new Exception("Registro no encontrado para id = " + id);
+				}
 			}
-
+			
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 
-		return c;
+		return registro;
 	}
 
 	@Override
