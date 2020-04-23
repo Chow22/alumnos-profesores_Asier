@@ -6,6 +6,7 @@ _Dos proyectos cliente y servidor, la parte Servidor con Java y la parte Cliente
 ![Alt text](/CapturasApp/captura1.png?raw=true "")
 ![Alt text](/CapturasApp/captura2.png?raw=true "")
 ![Alt text](/CapturasApp/captura3.png?raw=true "")
+![Alt text](/CapturasApp/captura4.png?raw=true "")
 
 
 # AppCliente
