@@ -107,10 +107,8 @@ WebContent/META-INF/context.xml
 ### [DELETE]
 ## EliminarCursoAsignado [api/personas/{idPersona}/curso/{idCurso}]
 + Attributes (persona)
-    + id: 1 (int)
-    + nombre: Ana (string)
-    + avatar: avatar1.png (string) 
-    + sexo: h (string) h/m
+    + idPersona: 1 (int)
+    + idCurso: 2 (int)
 + Request
     + Headers
             Accept: application/json
