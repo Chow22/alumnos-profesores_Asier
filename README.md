@@ -166,10 +166,16 @@ Abrir en un navegador index.html que esta en appclient
 
 
 ## Versiones 📌
-v1.0
+###v1.0
+```
 Crear, Modificar y Eliminar alumnos.
-v2.0
+```
+
+###v2.0
+```
 Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
+```
+
 ## Autor ✒️
 
 * **Asier Galan** - *Desarrollo* - [chow22](https://github.com/Chow22)
