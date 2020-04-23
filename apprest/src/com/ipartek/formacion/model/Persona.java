@@ -12,7 +12,7 @@ public class Persona {
 	@Size( min=2, max = 50, message = "minimo 2 maximo 50 carcateres" )
 	private String nombre;	
 	
-	@NotEmpty
+	@NotEmpty(message = "No puede estar el campo vacio" )
 	private String avatar;
 	
 	//TODO regexp para "h" o "m"
