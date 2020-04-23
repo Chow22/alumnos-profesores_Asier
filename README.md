@@ -166,16 +166,27 @@ Abrir en un navegador index.html que esta en appclient
 
 
 ## Versiones 📌
-###v1.0
+### v1.0
 ```
 Crear, Modificar y Eliminar alumnos.
 ```
 
-###v2.0
+### v2.0
 ```
 Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
 ```
+### tag15
+```
+Ampliar la base datos para que un alumno pueda comprar cursos.  
 
+Realizar una SQL para listar todos los alumnos y sus cursos, aunque no tengan cursos asociados. 
+
+Exportar la base de datos con los datos incluidos
+```
+### tag16
+```
+En la aplicación cliente crear un nuevo botón en el formulario de editar alumnos. Cuando se pulse este botón aparece una ventana modal con todos los cursos disponibles en la base de datos. El listado de cursos puede filtrase por nombre, el filtro funciona directamente contra el servicio rest.
+```
 ## Autor ✒️
 
 * **Asier Galan** - *Desarrollo* - [chow22](https://github.com/Chow22)
