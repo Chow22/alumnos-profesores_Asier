@@ -185,7 +185,9 @@ Exportar la base de datos con los datos incluidos
 ```
 ### tag16
 ```
-En la aplicación cliente creado un nuevo botón en el formulario de editar alumnos. Cuando se pulsa este botón aparece una ventana modal con todos los cursos disponibles en la base de datos. El listado de cursos puede filtrase por nombre, el filtro funciona directamente contra el servicio rest.
+En la aplicación cliente creado un nuevo botón en el formulario de editar alumnos. 
+Cuando se pulsa este botón aparece una ventana modal con todos los cursos disponibles en la base de datos. 
+El listado de cursos puede filtrase por nombre, el filtro funciona directamente contra el servicio rest.
 ```
 ## Autor ✒️
 
