@@ -20,7 +20,11 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 * [Magic Animation](https://www.minimamente.com/project/magic/) - Libreria animaciones css
 
 ## Configuracion 🛠️
-En la app cliente se podra modificar la URI de conexion con el servidor desde la variable global endpoint.
+En la app cliente se podra modificar la URI de conexion con el servidor desde la variable global endpoint que se encuentra en el siguiente archivo.
+
+```
+js/main.js
+```
 
 # AppRest
 ## Tecnología usada
