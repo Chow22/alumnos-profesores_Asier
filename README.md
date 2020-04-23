@@ -29,7 +29,11 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 * [MySql](https://www.mysql.com/) - Sistema de gestión de bases de datos
 
 ## Configuracion 🛠️
-Para configurar los paremetros de la conexion a la base de datos habra que modificar el archivo WebContent/META-INF/context.xml
+Para configurar los paremetros de la conexion a la base de datos habra que modificar el archivo: 
+
+```
+WebContent/META-INF/context.xml
+```
 
 ## ️Detalle API rest con llamadas
 
