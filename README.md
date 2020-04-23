@@ -3,6 +3,10 @@
 _Dos proyectos cliente y servidor, la parte Servidor con Java y la parte Cliente con Html,Bootstrap,CSS y Javascript_
 
 ## Capturas 📖
+![Alt text](/CapturasApp/captura1.png?raw=true "Optional Title")
+![Alt text](/CapturasApp/captura2.png?raw=true "Optional Title")
+![Alt text](/CapturasApp/captura3.png?raw=true "Optional Title")
+
 
 # AppCliente
 ## Tecnología usada 
