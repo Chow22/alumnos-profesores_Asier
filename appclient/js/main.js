@@ -111,13 +111,12 @@ function eliminar(id) {
         const url = endpoint + personaSeleccionada.id;
         ajax('DELETE', url, undefined)
             .then(data => {
-
-                // conseguir de nuevo todos los alumnos
                 conseguirAlumnos();
 
             })
             .catch(error => {
                 console.warn('promesa rejectada %o', error);
+                console.debug(error);
                 alert(error.informacion);
             });
 
