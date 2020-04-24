@@ -154,7 +154,7 @@ function eliminar(id) {
 
 function seleccionar(id) {
 
-    let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
+    personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
     let detalle = document.getElementById("detalle");
     detalle.classList.add('magictime', 'slideRightReturn');
     detalle.style.display = "block";
