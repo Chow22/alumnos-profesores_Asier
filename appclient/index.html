@@ -33,6 +33,8 @@
                 <option value="m">Mujer</option>
             </select>
             <input type="search" id="nombre" placeholder="Escribe nombre">
+            <br><br>
+            <input type="button" value="Nueva Persona" class="btn btn-primary" onclick="seleccionar(-1)">
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -71,7 +73,6 @@
                     <br>
 
                     <input type="button" value="Guardar" class="btn btn-primary" onclick="guardar()">
-                    <input type="button" value="Nueva Persona" class="btn btn-primary" onclick="seleccionar(-1)">
                     <br><br>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="cargarCursosTodos()">
                         Cursos disponibles

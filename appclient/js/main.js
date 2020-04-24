@@ -128,6 +128,7 @@ function eliminar(id) {
 
 function seleccionar(id) {
 
+    let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
     let detalle = document.getElementById("detalle");
     detalle.classList.add('magictime', 'slideRightReturn');
     detalle.style.display = "block";
@@ -221,7 +222,7 @@ function guardar() {
             })
             .catch(error => {
                 console.warn('promesa rejectada');
-                alert(error);
+                alert(error.informacion);
             });
 
 
@@ -395,6 +396,6 @@ function asignarCurso(idPersona = 0, idCurso) {
             conseguirAlumnos();
 
         })
-        .catch(error => alert(error));
+        .catch(error => alert(error.informacion));
 
 }

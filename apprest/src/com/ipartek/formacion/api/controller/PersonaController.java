@@ -1,6 +1,7 @@
 package com.ipartek.formacion.api.controller;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -170,6 +171,10 @@ public class PersonaController {
 			responseBody.setData(c);
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
+		} catch(SQLIntegrityConstraintViolationException e){
+			responseBody.setInformacion("Curso ya esta asignado");
+			response = Response.status(Status.CONFLICT).entity(responseBody).build();
+
 		} catch (Exception e) {			
 				responseBody.setInformacion(e.getMessage());
 				response = Response.status(Status.NOT_FOUND).entity(responseBody).build();
