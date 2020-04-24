@@ -14,10 +14,6 @@ function init() {
 
 }
 
-
-/**
- * 
- */
 function listener() {
 
     let selectorSexo = document.getElementById('selectorSexo');
@@ -130,8 +126,8 @@ function eliminar(id) {
 
 
 function seleccionar(id) {
-    personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
 
+    let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
     let detalle = document.getElementById("detalle");
     detalle.classList.add('magictime', 'slideRightReturn');
     detalle.style.display = "block";
@@ -212,10 +208,15 @@ function guardar() {
     //CREAR
     if (id == 0) {
         console.trace('Crear nueva persona');
+        //persona.id = ++personas.length;
+        //personas.push(persona);
 
         ajax('POST', endpoint, personaSeleccionada)
             .then(data => {
+
+                // conseguir de nuevo todos los alumnos
                 conseguirAlumnos();
+
 
             })
             .catch(error => {
@@ -231,7 +232,10 @@ function guardar() {
         const url = endpoint + personaSeleccionada.id;
         ajax('PUT', url, personaSeleccionada)
             .then(data => {
+
+                // conseguir de nuevo todos los alumnos
                 conseguirAlumnos();
+
 
             })
             .catch(error => {
