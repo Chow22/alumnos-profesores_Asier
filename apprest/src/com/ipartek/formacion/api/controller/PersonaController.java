@@ -171,9 +171,6 @@ public class PersonaController {
 			responseBody.setData(c);
 			response = Response.status(Status.CREATED).entity(responseBody).build();
 			
-		} catch(SQLIntegrityConstraintViolationException e){
-			responseBody.setInformacion("Curso ya esta asignado");
-			response = Response.status(Status.CONFLICT).entity(responseBody).build();
 
 		} catch (Exception e) {			
 				responseBody.setInformacion(e.getMessage());
