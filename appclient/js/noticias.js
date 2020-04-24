@@ -10,6 +10,10 @@ function init() {
 
 }
 
+/**
+ * Cargar las noticias
+ */
+
 function cargarNoticias() {
     ajax('GET', endpoint, undefined)
         .then(data => {

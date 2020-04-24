@@ -1,9 +1,15 @@
-// fichero javascript para app
+/**
+ * Variables globales
+ */
 const endpoint = 'http://localhost:8080/apprest/api/personas/';
 let personas = [];
 let personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
 
 window.addEventListener('load', init());
+
+/**
+ * funcion de carga pagina
+ */
 
 function init() {
     console.debug('Document Load and Ready');
@@ -16,7 +22,7 @@ function init() {
 
 
 /**
- * 
+ * Eventos click
  */
 function listener() {
 
@@ -51,6 +57,11 @@ function listener() {
 
 }
 
+
+/**
+ * Pintar lista personas 
+ */
+
 function pintarLista(alumnosJSON) {
 
 
@@ -74,6 +85,11 @@ function pintarLista(alumnosJSON) {
     
     ` );
 };
+
+
+/**
+ * filtro sexo
+ */
 
 function filtrarSexo() {
     let selector = document.getElementById('selectorSexo').value;
@@ -106,6 +122,10 @@ function filtrarSexo() {
 ` );
 }
 
+/**
+ * Eliminar persona
+ */
+
 function eliminar(id) {
     let personaSeleccionada = personas.find(persona => persona.id == id);
     console.debug('click eliminar persona %o', personaSeleccionada);
@@ -128,6 +148,9 @@ function eliminar(id) {
 
 }
 
+/**
+ * Seleccionar persona
+ */
 
 function seleccionar(id) {
     personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
@@ -172,7 +195,9 @@ function seleccionar(id) {
 
 
 }
-
+/**
+ * Guardar persona
+ */
 function guardar() {
 
     console.trace('click guardar');
@@ -206,8 +231,6 @@ function guardar() {
     };
 
     console.debug('persona a guardar %o', personaSeleccionada);
-
-    //TODO llamar servicio rest
 
     //CREAR
     if (id == 0) {
@@ -246,7 +269,9 @@ function guardar() {
 
 }
 
-
+ /**
+ * Iniciar galeria iconos
+ */
 function initGallery() {
     let divGallery = document.getElementById('gallery');
     for (let i = 1; i <= 7; i++) {
@@ -256,6 +281,10 @@ function initGallery() {
                                       src="img/avatar${i}.png">`;
     }
 }
+
+/**
+ * click seleccionar avatar
+ */
 
 function selectAvatar(evento) {
     console.trace('click avatar');
@@ -267,6 +296,10 @@ function selectAvatar(evento) {
     iAvatar.value = evento.target.dataset.path;
 
 }
+
+/**
+ * Conseguir alumnos por rest
+ */
 
 function conseguirAlumnos() {
     document.getElementById("selectorSexo").selectedIndex = 0;
@@ -284,6 +317,10 @@ function conseguirAlumnos() {
         });
 
 }
+
+/**
+ * Cargar cursos
+ */
 
 function cargarCursosTodos(filtro = '') {
     let cursos = [];
@@ -319,6 +356,10 @@ function cargarCursosTodos(filtro = '') {
 
 }
 
+/**
+ * Cargar lista de cursos asignados
+ */
+
 function cargarCursosComprados(cursos) {
     let lista = document.getElementById('cursosAlumno');
     lista.innerHTML = "";
@@ -341,6 +382,10 @@ function cargarCursosComprados(cursos) {
     ` );
 }
 
+/**
+ * Eliminar curso asignado
+ */
+
 function eliminarCurso(event, idPersona, idCurso) {
     const url = endpoint + idPersona + "/curso/" + idCurso;
     ajax('DELETE', url, undefined)
@@ -355,6 +400,10 @@ function eliminarCurso(event, idPersona, idCurso) {
         .catch(error => alert(error));
 
 }
+
+/**
+ * asignar un curso
+ */
 
 function asignarCurso(idPersona = 0, idCurso) {
 

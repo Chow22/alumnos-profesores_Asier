@@ -18,13 +18,14 @@
     <!--Navbar -->
     <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
-        <a class="btn btn-info" href="index.html" type="button">Inicio</a>
-        <a class="btn btn-info" href="noticias.html" type="button">Noticias</a>
+            <a class="btn btn-info" href="index.html" type="button">Inicio</a>
+            <a class="btn btn-info" href="noticias.html" type="button">Noticias</a>
         </form>
     </nav>
     <!--/.Navbar -->
     <main class="container magictime slideLeftReturn">
         <h1 class="alineadoIzq">Listado Alumnos</h1>
+        <!-- seleccion -->
         <div class="seleccion">
             <p>Buscador</p>
             <select id="selectorSexo" onchange="filtrarSexo()">
@@ -36,83 +37,97 @@
             <br><br>
             <input type="button" value="Nueva Persona" class="btn btn-primary" onclick="seleccionar(-1)">
         </div>
+        <!-- seleccion -->
+        <!-- container -->
         <div class="container-fluid">
+            <!-- row -->
             <div class="row">
                 <div class="col-md-4">
 
                     <div id="alumnos">
-                        
+
                         Cargando...
                     </div>
                 </div>
+                 </div>
+                <!-- detalle -->
                 <div id="detalle">
-                <div class="col-md-4">
+                    <!-- columna -->
+                    <div class="col-md-4">
 
-                    <input type="text" id="inputId" placeholder="id" readonly>
-                    <br>
-                    <input type="text" id="inputNombre" placeholder="Escribe nombre">
-                    <br>
-                    <input type="text" id="inputAvatar" placeholder="Escribe avatar">
-                    <br><br>
+                        <input type="text" id="inputId" placeholder="id" readonly>
+                        <br>
+                        <input type="text" id="inputNombre" placeholder="Escribe nombre">
+                        <br>
+                        <input type="text" id="inputAvatar" placeholder="Escribe avatar">
+                        <br><br>
 
-                    <!-- Group of default radios -->
-                    <div class="funkyradio">
-                        <div class="funkyradio-success">
-                            <input type="radio" name="sexo" id="sexoh" value="h" />
-                            <label for="sexoh">Hombre</label>
-                        </div>
-                        <div class="funkyradio-success">
-                            <input type="radio" name="sexo" id="sexom" value="m" />
-                            <label for="sexom">Mujer</label>
-                        </div>
-
-                    </div>
-                    <br>
-                    <div id="gallery">
-                    </div>
-                    <br>
-
-                    <input type="button" value="Guardar" class="btn btn-primary" onclick="guardar()">
-                    <br><br>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="cargarCursosTodos()">
-                        Cursos disponibles
-                    </button>
-                    <br>
-
-                </div>
-
-                <div class="col-md-4" id="cu">
-                    <h1>Cursos adquiridos</h1>
-                    <div id="cursosAlumno">
-                        Cargando...
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h1 class="modal-title" id="exampleModalLabel">Cursos</h1>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                <input type="search" id="filtroCurso" placeholder="..."><span class="glyphicon glyphicon-search"></span>
-                                <ul id="cursosLista">
-                                    <li class="list-item">Cargando...</li>
-                                </ul>
+                        <!-- Group of default radios -->
+                        <div class="funkyradio">
+                            <div class="funkyradio-success">
+                                <input type="radio" name="sexo" id="sexoh" value="h" />
+                                <label for="sexoh">Hombre</label>
                             </div>
+                            <div class="funkyradio-success">
+                                <input type="radio" name="sexo" id="sexom" value="m" />
+                                <label for="sexom">Mujer</label>
+                            </div>
+
                         </div>
+                        <br>
+                        <div id="gallery">
+                        </div>
+                        <br>
+
+                        <input type="button" value="Guardar" class="btn btn-primary" onclick="guardar()">
+                        <br><br>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                            onclick="cargarCursosTodos()">
+                            Cursos disponibles
+                        </button>
+                        <br>
+
+                    </div>
+                    <!-- columna -->
+
+                    <div class="col-md-4" id="cu">
+                        <h1>Cursos adquiridos</h1>
+                        <div id="cursosAlumno">
+                            Cargando...
+                        </div>
+                    </div>
+                </div>
+                <!-- detalle -->
+                
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h1 class="modal-title" id="exampleModalLabel">Cursos</h1>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="search" id="filtroCurso" placeholder="..."><span
+                            class="glyphicon glyphicon-search"></span>
+                        <ul id="cursosLista">
+                            <li class="list-item">Cargando...</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     <script src="js/ajax.js"></script>
     <script src="js/main.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
