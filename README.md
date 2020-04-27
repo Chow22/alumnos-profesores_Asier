@@ -23,9 +23,10 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 ## Configuracion 🛠️
 En la app cliente se podra modificar la URI de conexion con el servidor desde la variable global endpoint que se encuentra en el siguiente archivo.
 
-```
-js/main.js
-```
+
+[js/main.js](https://github.com/Chow22/alumnos-profesores_Asier/blob/master/appclient/js/main.js) 
+
+
 
 # AppRest
 ## Tecnología usada
@@ -80,7 +81,7 @@ WebContent/META-INF/context.xml
 + Request
     + Headers
             Accept: application/json
-+ Response 200 (application/json;charset=UTF-8) 
++ Response 201 (application/json;charset=UTF-8) 
 
 ### [PUT]
 ## ModificarPersona [api/personas/{id}]
@@ -147,8 +148,10 @@ Descargar proyecto de github o clonar repositorio
 _Paso 2_
 
 ```
-Importar la base de datos que esta en apprest/BasesDeDatos en Mysql-Server
+Importar la base de datos que con el archivo que se encuentra en apprest/BasesDeDatos en Mysql-Server
 ```
+[apprest/BasesDeDatos](https://github.com/Chow22/alumnos-profesores_Asier/tree/master/apprest/BaseDeDatos) 
+
 _Paso 3_
 
 ```
