@@ -24,7 +24,8 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 En la app cliente se podra modificar la URI de conexion con el servidor desde la variable global endpoint que se encuentra en el siguiente archivo.
 
 ```
-js/main.js(https://github.com/Chow22/alumnos-profesores_Asier/blob/master/appclient/js/main.js)
+[js/main.js](https://github.com/Chow22/alumnos-profesores_Asier/blob/master/appclient/js/main.js) 
+
 ```
 
 # AppRest
