@@ -80,7 +80,7 @@ WebContent/META-INF/context.xml
 + Request
     + Headers
             Accept: application/json
-+ Response 200 (application/json;charset=UTF-8) 
++ Response 201 (application/json;charset=UTF-8) 
 
 ### [PUT]
 ## ModificarPersona [api/personas/{id}]
