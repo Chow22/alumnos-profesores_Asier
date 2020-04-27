@@ -55,6 +55,37 @@ function listener() {
 
     });
 
+
+
+    // buscar si existe nombre
+    let iNombre = document.getElementById('inputNombre');
+    let nombreMensaje = document.getElementById('nombreMensaje');
+
+    iNombre.addEventListener('keyup',  () =>{
+        console.debug('tecla pulsada ' + iNombre.value);
+
+        if ( personaSeleccionada.nombre != iNombre.value ){
+
+            const url = endpoint + iNombre.value;
+            ajax('GET', url, undefined)
+                .then( ( data ) => {
+                    console.debug('Nombre NO disponible');
+                    nombreMensaje.textContent = 'Nombre NO disponible';
+                    iNombre.classList.add('is-invalid');
+                    iNombre.classList.remove('is-invalid');
+                })
+                .catch( ( error ) => {
+                    console.debug('Nombre disponible');
+                    nombreMensaje.textContent = 'Nombre disponible';
+                    nombreMensaje.classList.add('valid');
+                    nombreMensaje.classList.remove('invalid');
+                });
+        }     
+
+    
+
+    });
+
 }
 
 

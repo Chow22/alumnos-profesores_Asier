@@ -19,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -56,11 +57,29 @@ public class PersonaController {
 	public ArrayList<Persona> getAll() {
 		LOGGER.info("getAllPersonas");
 		PersonaDAO personaDAO = PersonaDAO.getInstancia();
-		// return personas;
 		ArrayList<Persona> registros = (ArrayList<Persona>) personaDAO.getAll();
 		return registros;
 	}
 
+	@GET
+	@Path("/{filtro}")
+	public Response buscarPorNombre(@PathParam("filtro") String filtro ) throws Exception {
+		LOGGER.info("buscarPorNombre "+filtro);
+		PersonaDAO personaDAO = PersonaDAO.getInstancia();
+		Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(null).build();
+		Persona registro= new Persona();
+		
+		try{
+			registro = personaDAO.getByNombre(filtro);
+			response = Response.status(Status.OK).entity(registro).build();
+		}catch(Exception e){
+			response = Response.status(Status.NOT_FOUND).entity(registro).build();
+		}
+
+		return response;
+	}
+
+	
 	@POST
 	public Response insert(Persona persona) {
 		LOGGER.info("insert(" + persona + ")");

@@ -86,6 +86,38 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		return registro;
 	}
+	
+	public Persona getByNombre(String nombre) throws Exception {
+		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo, c.id as curso_id, c.nombre as curso_nombre,"
+				+ " c.precio as curso_precio, c.imagen  as curso_imagen FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id) LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre=?;";
+
+		Persona registro = null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql);
+		) {
+
+			pst.setString(1, nombre);
+			LOGGER.info(pst.toString());
+			
+			try( ResultSet rs = pst.executeQuery() ){
+			
+				HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
+				if( rs.next() ) {					
+					mapper(rs, hmPersonas);
+				}else {
+					throw new Exception("Registro no encontrado para nombre = " + nombre);
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return registro;
+	}
+	
 
 	@Override
 	public Persona delete(int id) throws Exception, SQLException {
@@ -158,7 +190,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		}
 
-		// se añade el curso
+		// se aï¿½ade el curso
 		int idCurso = rs.getInt("curso_id");
 		if (idCurso != 0) {
 			Curso c = new Curso();
@@ -219,5 +251,7 @@ public class PersonaDAO implements IDAO<Persona> {
 		
 		return resul;
 	}
+
+
 
 }
