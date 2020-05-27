@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `alumnos` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `alumnos`;
--- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
 --
 -- Host: localhost    Database: alumnos
 -- ------------------------------------------------------
--- Server version	8.0.19-0ubuntu5
+-- Server version	8.0.20-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -81,9 +81,12 @@ CREATE TABLE `persona` (
   `nombre` varchar(100) DEFAULT NULL,
   `avatar` varchar(250) DEFAULT NULL,
   `sexo` varchar(1) DEFAULT NULL,
+  `rol_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  KEY `fk_persona_1_idx` (`rol_id`),
+  CONSTRAINT `fk_rol_id` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +95,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Pablo','avatar4.png','h'),(2,'Raul','avatar3.png','h'),(3,'Ana','avatar2.png','m');
+INSERT INTO `persona` VALUES (1,'Pablo','avatar6.png','h',2),(2,'Raul','avatar3.png','h',1),(3,'Ana','avatar2.png','m',1),(10,'Rosa','avatar1.png','m',2);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,8 +123,32 @@ CREATE TABLE `persona_has_curso` (
 
 LOCK TABLES `persona_has_curso` WRITE;
 /*!40000 ALTER TABLE `persona_has_curso` DISABLE KEYS */;
-INSERT INTO `persona_has_curso` VALUES (2,1),(3,1),(1,2),(2,2);
+INSERT INTO `persona_has_curso` VALUES (2,1),(3,1),(1,2),(2,2),(10,2),(1,3),(2,3),(3,3),(10,3);
 /*!40000 ALTER TABLE `persona_has_curso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rol`
+--
+
+DROP TABLE IF EXISTS `rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rol` (
+  `id` int NOT NULL,
+  `rol` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rol`
+--
+
+LOCK TABLES `rol` WRITE;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,1),(2,2);
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -133,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-24  9:36:06
+-- Dump completed on 2020-05-27 18:38:30
