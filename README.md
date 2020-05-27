@@ -179,6 +179,10 @@ Crear, Modificar y Eliminar alumnos.
 ```
 Añadida funcionalidad de asignar, eliminar cursos y cambio estetico.
 ```
+### v3.0
+```
+Añadida opcion de rol profesor o alumno y pagina de noticias.
+```
 ### tag15
 ```
 Ampliar la base datos para que un alumno pueda comprar cursos.  
