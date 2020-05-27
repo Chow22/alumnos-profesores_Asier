@@ -34,7 +34,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 		ArrayList<Persona> registros = new ArrayList<Persona>();
 		HashMap<Integer, Persona> hmPersonas = new HashMap<Integer, Persona>();
-		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo, c.id as curso_id, c.nombre as curso_nombre,"
+		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo,p.rol_id as persona_rol, c.id as curso_id, c.nombre as curso_nombre,"
 				+ " c.precio as curso_precio, c.imagen  as curso_imagen FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id) LEFT JOIN curso c ON pc.curso_id = c.id LIMIT 500; ";
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -57,7 +57,7 @@ public class PersonaDAO implements IDAO<Persona> {
 
 	@Override
 	public Persona getById(int id) throws Exception {
-		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo, c.id as curso_id, c.nombre as curso_nombre,"
+		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo,p.rol_id as persona_rol, c.id as curso_id, c.nombre as curso_nombre,"
 				+ " c.precio as curso_precio, c.imagen  as curso_imagen FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id) LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.id="+ id + ";";
 
 		Persona registro = null;
@@ -88,7 +88,7 @@ public class PersonaDAO implements IDAO<Persona> {
 	}
 	
 	public Persona getByNombre(String nombre) throws Exception {
-		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo, c.id as curso_id, c.nombre as curso_nombre,"
+		String sql = "SELECT p.id as persona_id, p.nombre as persona_nombre, p.avatar as persona_avatar, p.sexo as persona_sexo,p.rol_id as persona_rol, c.id as curso_id, c.nombre as curso_nombre,"
 				+ " c.precio as curso_precio, c.imagen  as curso_imagen FROM (persona p LEFT JOIN persona_has_curso pc ON p.id = pc.persona_id) LEFT JOIN curso c ON pc.curso_id = c.id WHERE p.nombre=?;";
 
 		Persona registro = null;
@@ -146,11 +146,12 @@ public class PersonaDAO implements IDAO<Persona> {
 	@Override
 	public Persona insert(Persona pojo) throws Exception, SQLException {
 		Connection con = ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement("INSERT INTO persona ( nombre, avatar, sexo) VALUES ( ?, ?, ? );");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO persona ( nombre, avatar, sexo, rol_id) VALUES ( ?, ?, ? ,?);");
 
 		ps.setString(1, pojo.getNombre());
 		ps.setString(2, pojo.getAvatar());
 		ps.setString(3, pojo.getSexo());
+		ps.setInt(4, pojo.getRol());
 
 		ps.executeUpdate();
 
@@ -161,12 +162,13 @@ public class PersonaDAO implements IDAO<Persona> {
 	public Persona update(Persona pojo) throws Exception, SQLException {
 
 		Connection con = ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement("UPDATE persona SET nombre=?,avatar=?,sexo=? WHERE id=?");
+		PreparedStatement ps = con.prepareStatement("UPDATE persona SET nombre=?,avatar=?,sexo=?, rol_id=? WHERE id=?");
 
 		ps.setString(1, pojo.getNombre());
 		ps.setString(2, pojo.getAvatar());
 		ps.setString(3, pojo.getSexo());
-		ps.setInt(4, pojo.getId());
+		ps.setInt(4, pojo.getRol());
+		ps.setInt(5, pojo.getId());
 
 		ps.executeUpdate();
 
@@ -187,6 +189,7 @@ public class PersonaDAO implements IDAO<Persona> {
 			p.setNombre(rs.getString("persona_nombre"));
 			p.setAvatar(rs.getString("persona_avatar"));
 			p.setSexo(rs.getString("persona_sexo"));
+			p.setRol(rs.getInt("persona_rol"));
 
 		}
 

@@ -185,7 +185,7 @@ function eliminar(id) {
 
 function seleccionar(id) {
 
-    personaSeleccionada = { "id": 0, "nombre": "sin nombre" };
+    personaSeleccionada = { "id": 0, "nombre": "sin nombre"};
     let detalle = document.getElementById("detalle");
     detalle.classList.add('magictime', 'slideRightReturn');
     detalle.style.display = "block";
@@ -224,6 +224,20 @@ function seleccionar(id) {
         checkMujer.checked = 'checked';
     }
 
+    //seleccionar rol
+
+    const rol = personaSeleccionada.rol;
+    let checkAlumno = document.getElementById('rol1');
+    let checkProfesor = document.getElementById('rol2');
+
+    if (rol == "1") {
+        checkAlumno.checked = 'checked';
+        checkProfesor.checked = '';
+
+    } else {
+        checkAlumno.checked = '';
+        checkProfesor.checked = 'checked';
+    }
 
 }
 /**
@@ -236,12 +250,18 @@ function guardar() {
     let nombre = document.getElementById('inputNombre').value;
     const avatar = document.getElementById('inputAvatar').value;
 
-    var ele = document.getElementsByName('sexo');
+    var eleSexo = document.getElementsByName('sexo');
+    var eleRol= document.getElementsByName('rol');
 
-
-    for (i = 0; i < ele.length; i++) {
-        if (ele[i].checked)
-            sexoelegido = ele[i].value;
+    //coger sexo chekeado
+    for (i = 0; i < eleSexo.length; i++) {
+        if (eleSexo[i].checked)
+            sexoelegido = eleSexo[i].value;
+    }
+    //coger rol chekeado
+    for (i = 0; i < eleRol.length; i++) {
+        if (eleRol[i].checked)
+            rolelegido = eleRol[i].value;
     }
 
     //arregla en fallo de mandar con img/ o sin ello
@@ -250,14 +270,16 @@ function guardar() {
             "id": id,
             "nombre": nombre,
             "avatar": avatar.substring(4, 20),
-            "sexo": sexoelegido
+            "sexo": sexoelegido,
+            "rol": rolelegido
         }
     } else {
         personaSeleccionada = {
             "id": id,
             "nombre": nombre,
             "avatar": avatar,
-            "sexo": sexoelegido
+            "sexo": sexoelegido,
+            "rol": rolelegido
         }
     };
 
