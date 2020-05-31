@@ -374,7 +374,7 @@ function conseguirAlumnos() {
 
         }).catch(error => {
             console.warn('promesa rejectada');
-            alert(error);
+            alert("No se a podido conectar con el servicio Rest");
         });
 
 }
